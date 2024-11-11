@@ -18,6 +18,7 @@ export default {
     },
     methods:{
         delPerson(){
+            console.log(this.person)
             this.$store.commit("delPerson", this.person.id)
         },
         onInput(event) {

@@ -1,15 +1,25 @@
 <template>
     <div class="product-item">
         <v-card variant="outlined" class="card">
-            <input  placeholder="Name" class="inpt"/>
+            <input  
+                placeholder="Name" 
+                class="inpt"
+                :value="product.name"
+                @input="onInputName"
+            />
         </v-card>
         <v-card variant="outlined" class="card">
-            <input placeholder="Price" class="inpt"/>
+            <input 
+            placeholder="Price" 
+            class="inpt"
+            :value="product.price"
+            @input="onInputPrice"
+            />
         </v-card>
         <v-btn variant="outlined" height="50px" class="btn">
-            -
+            V
         </v-btn>
-        <v-btn variant="outlined" height="50px" class="btn">
+        <v-btn variant="outlined" height="50px" class="btn" @click="delProduct">
             -
         </v-btn>
     </div>
@@ -22,6 +32,19 @@ export default {
             required: true,
         }
     },
+    methods:{
+        delProduct(){
+            console.log(this.product)
+            this.$store.commit("delProduct", this.product.id)
+        },
+        onInputName(event) {
+            this.$emit("updateName", { id: this.product.id, value: event.target.value });
+            
+        },
+        onInputPrice(event) {
+            this.$emit("updatePrice", { id: this.product.id, value: event.target.value });
+        },
+    }
 }
 </script>
 <style >

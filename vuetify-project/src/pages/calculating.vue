@@ -1,10 +1,13 @@
 <template >
     <div class="mainpage">
         <v-sheet :height="550" :width="600" rounded class="container">
-            <v-btn height="50" class="add-btn" @click=" $store.commit('addPerson')">
+            <v-btn height="50" class="add-btn" @click=" $store.commit('addProduct')">
                 Add product
             </v-btn>
             <ProductList></ProductList>
+            <v-btn height="50" class="next-btn" @click=" $store.commit('addProduct')">
+                Next
+            </v-btn>
         </v-sheet>
     </div>
 </template>
@@ -28,5 +31,12 @@ export default {
     .add-btn {
         width: 100%;
         border-bottom: 1px solid white;
+    }
+    .next-btn {
+        width: 100%;
+        border-top: 1px solid white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
     }
 </style>

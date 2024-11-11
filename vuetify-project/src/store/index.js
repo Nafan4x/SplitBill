@@ -6,7 +6,7 @@ export default createStore({
         persons: [{id: 0, name: '123'}],
         fcheck: false,
         namecheck: false,
-        products: [{id:0, name: '123', persons_id: [1]}]
+        products: []
     },
     modules: {
         
@@ -16,8 +16,12 @@ export default createStore({
             state.persons.push({id: state.id, name: ''});
             state.id += 1;
         },
+        
         delPerson(state, id){
             state.persons = state.persons.filter(item => item.id !== id);
+        },
+        delProduct(state, id){
+            state.products = state.products.filter(item => item.id !== id);
         },
         updatePersonName(state, { id, name }) {
             const item = state.persons.find(item => item.id === id);
@@ -40,7 +44,23 @@ export default createStore({
                     state.namecheck = false;
                 }
             })
-        }
+        },
+        addProduct(state){
+            state.products.push({id: state.id, name: '', price: ''});
+            state.id += 1;
+        },
+        updateProductName(state, { id, name }) {
+            const item = state.products.find(item => item.id === id);
+            if (item) {
+              item.name = name;
+            }
+        },
+        updateProductPrice(state, { id, name }) {
+            const item = state.products.find(item => item.id === id);
+            if (item) {
+              item.price = name;
+            }
+        },
         
     }
 })

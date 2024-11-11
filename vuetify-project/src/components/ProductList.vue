@@ -2,9 +2,10 @@
     <div class="person-list">
         <ProductItem 
             v-for="item in products"
-            :person=item
+            :product=item
             :key=item.id
-            @update="updatePersonName"
+            @updateName="updateProductName"
+            @updatePrice="updateProductPrice"
             >
         </ProductItem>
     </div>
@@ -19,15 +20,18 @@ export default {
         }),
     },
     methods: {
-        updatePersonName({ id, value }) {
-            this.$store.commit('updatePersonName', { id, name: value });
-    },
+        updateProductName({ id, value }) {
+            this.$store.commit('updateProductName', { id, name: value });
+        },
+        updateProductPrice({ id, value }) {
+                this.$store.commit('updateProductPrice', { id, name: value });
+        },
   },
 }
 </script>
 <style>
     .person-list{
-        max-height: 430px; /* Задайте желаемую высоту */
+        max-height: 450px; /* Задайте желаемую высоту */
         overflow-y: auto; /* Добавляем вертикальную прокрутку */
     }
 </style>
