@@ -26,12 +26,12 @@
             </div>
             
             <div :class="['slide-container', { 'visible': isContainerVisible }]" id="product-item">
-                <v-btn variant="outlined" height="50px" class="btn" @click="delProduct">
-                
+                <v-btn variant="outlined" height="50px" class="btn" @click="">     
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" fill="white">
                         <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4-3a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM4.216 8.928a6.458 6.458 0 0 0-2.47 2.398A1 1 0 0 0 2 12v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1a1 1 0 0 0-.216-.674 6.458 6.458 0 0 0-2.47-2.398C9.781 8.317 8.901 8 8 8c-.901 0-1.781.317-2.784.928z"/>
                     </svg>
                 </v-btn>
+                
 
                 <v-btn variant="outlined" height="50px" class="btn" @click="toggleContainer">
                     ^
