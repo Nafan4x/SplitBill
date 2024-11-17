@@ -16,12 +16,15 @@
             @input="onInputPrice"
             />
         </v-card>
-        <v-btn variant="outlined" height="50px" class="btn">
-            V
-        </v-btn>
+        <MenuButton/>
+
         <v-btn variant="outlined" height="50px" class="btn" @click="delProduct">
             -
         </v-btn>
+        
+    </div>
+    <div id="qwe">
+        
     </div>
 </template>
 <script>

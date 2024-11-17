@@ -4,12 +4,14 @@
             <v-btn height="50" class="add-btn" @click=" $store.commit('addProduct')">
                 Add product
             </v-btn>
-            <ProductList></ProductList>
+            <ProductList/>
             <v-btn height="50" class="next-btn" @click=" $store.commit('addProduct')">
                 Next
             </v-btn>
+            
         </v-sheet>
     </div>
+    
 </template>
 <script>
 export default {

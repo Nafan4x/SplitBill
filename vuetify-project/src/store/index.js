@@ -6,7 +6,10 @@ export default createStore({
         persons: [{id: 0, name: '123'}],
         fcheck: false,
         namecheck: false,
-        products: []
+        products: [ {id: 1, name: 'Orange', price: 120, buyer: 'Kate', persons: ['Kate', 'Tim','Dan']},
+                    {id: 2, name: 'Milk', price: 50, buyer: 'Tim', persons: ['Tim','Dan']},
+                    {id: 3, name: 'Bread', price: 100, buyer: 'Kate', persons: ['Dan','Kate','Tim']}
+            ]
     },
     modules: {
         
