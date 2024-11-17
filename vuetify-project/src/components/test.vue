@@ -1,34 +1,69 @@
 <template>
-    <v-app>
-    <v-container>
-    
-    
     <div>
-    <h3>Выбранные опции:</h3>
-    <ul>
-    <li v-for="option in selectedOptions" :key="option">{{ option }}</li>
-    </ul>
+      
+  
+      <!-- Основной контейнер -->
+      <v-container class="mt-4 main-container">
+        <h3>Основной контейнер</h3>
+        <!-- Кнопка для отображения/скрытия контейнера -->
+        <v-btn @click="toggleContainer" color="primary" outlined w>
+          00
+        </v-btn>
+  
+        <!-- Дополнительный контейнер -->
+        <div
+          :class="['slide-container', { 'visible': isContainerVisible }]"
+        >
+          <h3>Дополнительный контейнер</h3>
+          <v-btn @click="toggleContainer" color="primary" outlined w>
+          00
+        </v-btn>
+        </div>
+      </v-container>
     </div>
-    </v-container>
-    </v-app>
-    </template>
-    
-    <script>
-    export default {
+  </template>
+  
+  <script>
+  export default {
     data() {
-    return {
-    menu: false,
-    options: [
-    { text: 'Опция 1', value: 'option1' },
-    { text: 'Опция 2', value: 'option2' },
-    { text: 'Опция 3', value: 'option3' }
-    ],
-    selectedOptions: []
-    };
+      return {
+        isContainerVisible: false, // Флаг для управления отображением контейнера
+      };
+    },
+    methods: {
+      toggleContainer() {
+        this.isContainerVisible = !this.isContainerVisible;
+      },
+    },
+  };
+  </script>
+  
+  <style lang="scss" scoped>
+  /* Основной контейнер */
+  .main-container {
+    position: relative; /* Нужно для выезжающего контейнера */
+    overflow: hidden; /* Скрываем выезжающий контент за границами */
+  }
+  
+  /* Дополнительный контейнер */
+  .slide-container {
+    position: absolute;
+    bottom: 100%; /* Изначально скрыт за пределами основного контейнера */
+    left: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transform: translateY(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    z-index: 1;
+  
+    &.visible {
+      transform: translateY(100%); /* Выезжает внутрь основного контейнера */
+      opacity: 1;
     }
-    };
-    </script>
-    
-    <style>
-    /* Добавьте ваши стили здесь */
-    </style>
+  }
+  </style>
+  

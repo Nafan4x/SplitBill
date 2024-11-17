@@ -1,29 +1,28 @@
 <template>
 
-        <div class="mt-4 main-container">
-            <div class="test">
-                <v-card variant="outlined" class="card">
-                    <input  
-                        placeholder="Name" 
-                        class="inpt"
-                        :value="product.name"
-                        @input="onInputName"
-                    />
-                </v-card>
+        <div class="mt-4 main-container" id="product-item">
+            <v-card variant="outlined" class="card">
+                <input  
+                    placeholder="Name" 
+                    class="inpt"
+                    :value="product.name"
+                    @input="onInputName"
+                />
+            </v-card>
 
-                <v-card variant="outlined" class="card">
-                    <input 
-                        placeholder="Price" 
-                        class="inpt"
-                        :value="product.price"
-                        @input="onInputPrice"
-                    />
-                </v-card>
-                
-                <v-btn variant="outlined" height="50px" class="btn" @click="delProduct"> - </v-btn>
+            <v-card variant="outlined" class="card">
+                <input 
+                    placeholder="Price" 
+                    class="inpt"
+                    :value="product.price"
+                    @input="onInputPrice"
+                />
+            </v-card>
+            
 
-                <v-btn variant="outlined" height="50px" class="btn" @click="toggleContainer"> V </v-btn>
-            </div>
+            <v-btn variant="outlined" height="50px" class="btn" @click="delProduct"> - </v-btn>
+
+            <v-btn variant="outlined" height="50px" class="btn" @click="toggleContainer"> V </v-btn>
             
             <div :class="['slide-container', { 'visible': isContainerVisible }]" id="product-item">
                 <v-btn variant="outlined" height="50px" class="btn" @click="delProduct">
@@ -78,37 +77,23 @@ export default {
 <style lang="scss" scoped>
 
     .main-container {
-        position: relative; /* Нужно для выезжающего контейнера */
-        overflow: hidden; /* Скрываем выезжающий контент за границами */
-        padding-top: 0px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        
+    position: relative; /* Нужно для выезжающего контейнера */
+    overflow: hidden; /* Скрываем выезжающий контент за границами */
     }
-    .test{
-        position: relative; /* Нужно для выезжающего контейнера */
-        overflow: hidden; /* Скрываем выезжающий контент за границами */
-        padding-top: 0px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 98%;
-    }
-
 
     .slide-container {
         position: absolute;
         bottom: 100%; /* Изначально скрыт за пределами основного контейнера */
-        width: 98%;
+        left: 0;
+        width: 100%;
         background-color: rgb(var(--v-theme-surface));
+        padding: 16px;
+        border: 0px solid #ccc;
+        border-radius: 4px;
         transform: translateY(0);
         transition: transform 0.3s ease, opacity 0.3s ease;
         opacity: 0;
         z-index: 1;
-        display: flex;
-        justify-content: space-between;
-        height: 100%;
 
         &.visible {
             transform: translateY(100%); /* Выезжает внутрь основного контейнера */
@@ -125,7 +110,13 @@ export default {
     .inpt:focus{
         border: 0px;
     }
-
+    #product-item{
+        padding: 7px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
     .card{
         width: 37%;
     }

@@ -10,7 +10,6 @@
             <v-list  class="list-item-group">
                 <v-list-item-group v-model="selectedOptions">
                     <v-list-item class="list-item" v-for="option in options" :key="option.value">
-                        <v-list-item-content>
                             <v-list-item-title>
                                 <v-checkbox
                                 :label="option.text"
@@ -19,7 +18,6 @@
                                 @click.stop
                                 />
                             </v-list-item-title>
-                        </v-list-item-content>
                     </v-list-item>
                 </v-list-item-group>
             </v-list>

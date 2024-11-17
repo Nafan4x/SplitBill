@@ -11,9 +11,6 @@ export default createStore({
                     {id: 3, name: 'Bread', price: 100, buyer: 'Kate', persons: ['Dan','Kate','Tim']}
             ]
     },
-    modules: {
-        
-    },
     mutations: {
         addPerson(state){
             state.persons.push({id: state.id, name: ''});
