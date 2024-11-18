@@ -108,7 +108,7 @@ export default {
         z-index: 1;
         display: flex;
         justify-content: space-between;
-        height: 100%;
+        height: 102%;
 
         &.visible {
             transform: translateY(100%); /* Выезжает внутрь основного контейнера */
