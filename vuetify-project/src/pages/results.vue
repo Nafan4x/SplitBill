@@ -5,8 +5,6 @@
         </h2>
         <v-sheet :height="550" :width="600" rounded class="container">
             <Tabs/>
-           
-            
         </v-sheet>
     </div>
 </template>
@@ -14,9 +12,8 @@
 
 export default {
     mounted(){
-        if(!this.$store.state.fcheck || !this.$store.state.namecheck)
+        if(!this.$store.state.persons.fcheck || !this.$store.state.persons.namecheck)
             this.$router.push('/');
-        
         if (!this.$store.state.calcCheck.prodnamecheck && !this.$store.state.calcCheck.prodbuyercheck && !this.$store.state.calcCheck.prodpersoncheck){
             this.$router.push('/calculating');
         }

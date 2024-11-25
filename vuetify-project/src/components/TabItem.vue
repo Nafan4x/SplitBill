@@ -12,7 +12,6 @@
                 <h3>No one owes anyone anything.</h3>
             </div>
     </v-card>
-    
 </template>
 <script>
 export default {

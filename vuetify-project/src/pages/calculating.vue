@@ -1,7 +1,7 @@
 <template >
     <div class="mainpage">
         <v-sheet :height="550" :width="600" rounded class="container">
-            <v-btn height="50" class="add-btn" @click=" $store.commit('addProduct')">
+            <v-btn height="50" class="add-btn" @click="addBtn">
                 Add product
             </v-btn>
             <ProductList/>
@@ -13,19 +13,27 @@
     
 </template>
 <script>
+import {mapState} from 'vuex'
 export default {
     data(){
         return{
             isActive: false,
         }
     },
+    computed: {
+        ...mapState('products', ['products'])
+    },
     methods:{
+        addBtn(){
+            this.$store.commit('products/addProduct')
+        },
         checkbtn(){
-            this.$store.commit('checkProdBuyer');
-            this.$store.commit('checkProdNames');
-            this.$store.commit('checkProdPersons');
-            this.$store.commit('checkProdLen');
-            console.log(this.$store.state.calcCheck.prodnamecheck)
+            //console.log('prod', this.products);
+            this.$store.commit('calcCheck/checkProdBuyer', this.products);
+            this.$store.commit('calcCheck/checkProdNames', this.products);
+            this.$store.commit('calcCheck/checkProdPersons', this.products);
+            this.$store.commit('calcCheck/checkProdLen', this.products);
+            
 
             const nextbtn = document.getElementById("nextbtn")
             this.isActive = true;
@@ -37,10 +45,8 @@ export default {
                 this.$router.push('/results');
             else if(!this.$store.state.calcCheck.prodnamecheck){
                 nextbtn.textContent = 'Enter all names and prices'
-                
             }
             else if(!this.$store.state.calcCheck.prodbuyercheck){
-                
                 nextbtn.textContent = 'Select all buyers'
             }
             else if(!this.$store.state.calcCheck.prodpersoncheck){
@@ -53,7 +59,7 @@ export default {
         }
     },
     mounted(){
-        if(!this.$store.state.fcheck || !this.$store.state.namecheck)
+        if(!this.$store.state.persons.fcheck || !this.$store.state.persons.namecheck)
             this.$router.push('/');
     }
 }

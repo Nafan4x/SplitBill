@@ -5,13 +5,13 @@
             @click="toggleButton"
             class="transition-btn"
             height="50px"
-        >   
+            >   
             <slot>
 
             </slot>
-                <div v-if="person.name != 'all'">
-                    {{ this.person.name }}
-                </div>
+            <div v-if="person.name != 'all'">
+                {{ this.person.name }}
+            </div>
             
         </v-btn>
 

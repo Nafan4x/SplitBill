@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-sheet :height="550" :width="600" rounded class="container">
-            <v-btn height="50" class="add-btn" @click=" $store.commit('addPerson')">
+            <v-btn height="50" class="add-btn" @click=" $store.commit('persons/addPerson')">
                 Add person
             </v-btn>
             <PersonList class="list"
@@ -10,23 +10,22 @@
             <v-btn  id='nextbtn' :class="{'active': isActive}" height="50" class="next-btn" @click="checkbtn" text="Next">
                 
             </v-btn>
-            <div ></div>
         </v-sheet>  
     </div>
 </template>
 <script>
-import { ref } from 'vue';
+
 export default {
     data() {
-    return {
-      persons: undefined,
-      isActive: false,
-    };
-  },
+        return {
+            persons: undefined,
+            isActive: false,
+        };
+    },
     methods:{
         checkbtn(){
-            this.$store.commit('checkPersons');
-            this.$store.commit('checkPersonsName');
+            this.$store.commit('persons/checkPersons');
+            this.$store.commit('persons/checkPersonsName');
             
             const nextbtn = document.getElementById("nextbtn")
             
@@ -35,8 +34,8 @@ export default {
                 this.isActive = false;
             }, 1000);
 
-            if(this.$store.state.fcheck){
-                if(this.$store.state.namecheck){
+            if(this.$store.state.persons.fcheck){
+                if(this.$store.state.persons.namecheck){
                     console.log('nice')
                     this.$router.push('/calculating');
                 }

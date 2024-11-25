@@ -49,24 +49,17 @@
       tab: null,
       depts: [],
       depts2: undefined,
- 
     }), 
 
  
     computed: {
-        ...mapState({
-            persons: state => state.persons,
-            products: state => state.products
-        }),
+        ...mapState('persons', ['persons']),
+        ...mapState('products', ['products']),
         
     },
     mounted(){
         this.depts = this.calculateDebts(this.products);
         this.depts2 = this.transformDebts(this.depts);
-        console.log('qwe', this.depts.length);
-        console.log(this.depts2.length);
-        
-        
     },
     
     methods:{
@@ -82,13 +75,11 @@
                 });
             });
 
-            // Преобразуем Map обратно в массив нужной структуры
             return Array.from(reversedMap, ([debtor, creditors]) => [debtor, creditors]);
         },
         calculateDebts(purchases) {
             const totalSpent = {};
             const totalDebt = {};
-
 
             purchases.forEach((item) => {
                 const { price, buyer, persons } = item;
@@ -140,9 +131,7 @@
                 }
                 }
             }
-
-            const list = Object.entries(finalDebts);
-            
+            const list = Object.entries(finalDebts);   
             return list;
         }
     },
@@ -152,13 +141,11 @@
 <style scoped>
     .card{
         width: 100%;
-        
     }
     .tab{
         width: 50%;
     }
     .tab-item{
-        
         overflow-y: auto;
     }
     .card-person{

@@ -13,13 +13,11 @@
 import {mapState} from 'vuex'
 export default {
     computed: {
-        ...mapState({
-            persons: state => state.persons,
-        }),
+        ...mapState('persons', ['persons'])
     },
     methods: {
         updatePersonName({ id, value }) {
-            this.$store.commit('updatePersonName', { id, name: value });
+            this.$store.commit('persons/updatePersonName', { id, name: value });
     },
   },
 }

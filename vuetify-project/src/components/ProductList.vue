@@ -6,7 +6,7 @@
             :key=item.id
             @updateName="updateProductName"
             @updatePrice="updateProductPrice"
-            @updatePersons="updatePdoductPersons"
+            @updatePersons="updateProductPersons"
             @updateBuyer="updateProductBuyer"
             :persons="this.persons"
             >
@@ -17,25 +17,23 @@
 import {mapState} from 'vuex'
 export default {
     computed: {
-        ...mapState({
-            persons: state => state.persons,
-            products: state => state.products
-        }),
+        ...mapState('persons', ['persons']),
+        ...mapState('products', ['products']),
     },
     methods: {
         updateProductName({ id, value }) {
-            this.$store.commit('updateProductName', { id, name: value });
+            this.$store.commit('products/updateProductName', { id, name: value });
         },
         updateProductPrice({ id, value }) {
-            this.$store.commit('updateProductPrice', { id, name: value });
+            this.$store.commit('products/updateProductPrice', { id, price: value }); // Исправлено
         },
-        updateProductBuyer({id, value}){
-            this.$store.commit('updateProductBuyer', { id, value: value.name });
+        updateProductBuyer({ id, value }) {
+            this.$store.commit('products/updateProductBuyer', { id, value: value.name });
         },
-        updatePdoductPersons({id, value}){
-            this.$store.commit('updateProductPersons', {id, value: value.map(obj => obj.name)})
+        updateProductPersons({ id, value }) {
+            this.$store.commit('products/updateProductPersons', { id, value: value.map(obj => obj.name) });
         }
-  },
+    },
 }
 </script>
 <style>

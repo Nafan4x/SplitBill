@@ -1,7 +1,8 @@
 <template>
-
+        
         <div class="mt-4 main-container">
-            <div class="test">
+            <!-- Первый контейнер -->
+            <div class="first-container">
                 <v-card variant="outlined" class="card">
                     <input  
                         placeholder="Name" 
@@ -25,8 +26,9 @@
 
                 <v-btn variant="outlined" height="50px"  @click="toggleContainer"> V </v-btn>
             </div>
-            
+            <!-- Второй контейнер -->            
             <div :class="['slide-container', { 'visible': isContainerVisible }]" id="product-item">
+                <!-- Список пользователей -->
                 <div class="person-container">
                     <PersonButton
                     :person="{id: -1, name: 'all'}"
@@ -44,23 +46,23 @@
                         
                     </PersonButton>
                 </div>
-
+                <!-- Выбор покупателя -->
                 <v-btn variant="outlined" height="50px" class="btn" @click="showDialog">   
                     <h4>{{ this.buyer.name }}</h4>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" fill="white">
                         <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4-3a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM4.216 8.928a6.458 6.458 0 0 0-2.47 2.398A1 1 0 0 0 2 12v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1a1 1 0 0 0-.216-.674 6.458 6.458 0 0 0-2.47-2.398C9.781 8.317 8.901 8 8 8c-.901 0-1.781.317-2.784.928z"/>
                     </svg>
                 </v-btn>
-
-                
-
+                <!-- Кнопка скрытия контейнера -->
                 <v-btn variant="outlined" height="50px" @click="toggleContainer">
                     ^
                 </v-btn>
+
             </div>
             
             
         </div>
+    <!-- Выбор покупателя -->
     <Dialog
         v-model:show="isDialogVisible"
         v-model:buyer="buyer"
@@ -94,7 +96,7 @@ export default {
     methods:{
         delProduct(){
             console.log(this.product)
-            this.$store.commit("delProduct", this.product.id)
+            this.$store.commit("products/delProduct", this.product.id)
         },
         onInputName(event) {
             this.$emit("updateName", { id: this.product.id, value: event.target.value });
@@ -104,7 +106,7 @@ export default {
             this.$emit("updatePrice", { id: this.product.id, value: event.target.value });
         },
         toggleContainer() {
-        this.isContainerVisible = !this.isContainerVisible;
+            this.isContainerVisible = !this.isContainerVisible;
         },
         showDialog(){
             this.isDialogVisible = true;
@@ -134,7 +136,9 @@ export default {
         buyer: function(value){
             this.$emit("updateBuyer", { id: this.product.id, value:value });
         }
-    }
+    },
+    emits: ['updateName', 'updatePrice', 'updatePersons', 'updateBuyer'],
+
     
 }
 </script>
@@ -159,7 +163,7 @@ export default {
         justify-content: center;
         
     }
-    .test{
+    .first-container{
         position: relative; /* Нужно для выезжающего контейнера */
         overflow: hidden; /* Скрываем выезжающий контент за границами */
         padding-top: 0px;

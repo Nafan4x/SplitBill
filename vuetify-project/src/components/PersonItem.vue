@@ -19,7 +19,7 @@ export default {
     methods:{
         delPerson(){
             console.log(this.person)
-            this.$store.commit("delPerson", this.person.id)
+            this.$store.commit("persons/delPerson", this.person.id)
         },
         onInput(event) {
             this.$emit("update", { id: this.person.id, value: event.target.value });

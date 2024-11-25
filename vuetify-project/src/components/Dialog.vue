@@ -59,6 +59,7 @@ export default {
     display: flex;
     background: rgba(0, 0, 0, 0.7);
     z-index: 3;
+    
 }
 .dialog-content{
     margin: auto;
@@ -68,11 +69,11 @@ export default {
     padding: 5px;
     display: flex;
     flex-direction: column;
-    
     align-items: center;
-    
     min-width: 500px;
     min-height: 100px;
+    overflow-y: auto;
+    max-height: 50%;
 }
 .radio-group{
     width: 100%;
