@@ -3,13 +3,15 @@ import {createStore} from "vuex";
 export default createStore({
     state: {
         id: 1,
-        persons: [{id: 0, name: '123'}],
+        //persons: [{id: 0, name: '123'}, {id: 1, name: '321'}],
+        persons: [],
         fcheck: false,
         namecheck: false,
-        products: [ {id: 1, name: 'Orange', price: 120, buyer: 'Kate', persons: ['Kate', 'Tim','Dan']},
-                    {id: 2, name: 'Milk', price: 50, buyer: 'Tim', persons: ['Tim','Dan']},
-                    {id: 3, name: 'Bread', price: 100, buyer: 'Kate', persons: ['Dan','Kate','Tim']}
-            ]
+        products: [],
+
+        prodnamecheck: false,
+        prodpersoncheck: false,
+        prodbuyercheck: false
     },
     mutations: {
         addPerson(state){
@@ -61,6 +63,45 @@ export default createStore({
               item.price = name;
             }
         },
+        updateProductPersons(state, { id, value }) {
+            const item = state.products.find(item => item.id === id);
+            if (item){
+              item.persons = value;
+            }
+        },
+        updateProductBuyer(state, { id, value }) {
+            const item = state.products.find(item => item.id === id);
+            if (item) {
+              item.buyer = value;
+            }
+        },
+        checkProdNames(state){
+            state.prodnamecheck = true;
+            state.products.forEach(item =>{
+                if(item.name == "" || !item.price){
+                    state.prodnamecheck = false;
+                }
+            })
+        },
+        checkProdBuyer(state){
+            state.prodbuyercheck = true;
+
+            state.products.forEach(item =>{
+                if(!item.buyer){
+                    state.prodbuyercheck = false;
+                }
+            })
+        },
+        checkProdPersons(state){
+            state.prodpersoncheck = true;
+            state.products.forEach(item =>{
+                if(!item.persons|| item.persons.length == 0 ){
+                    state.prodpersoncheck = false;
+                }
+            })
+        }
+
+
         
     }
 })

@@ -5,7 +5,7 @@
                 Add product
             </v-btn>
             <ProductList/>
-            <v-btn height="50" class="next-btn" @click=" $store.commit('addProduct')">
+            <v-btn height="50" class="next-btn" @click="checkbtn">
                 Next
             </v-btn>
             
@@ -15,7 +15,19 @@
 </template>
 <script>
 export default {
-    
+    methods:{
+        checkbtn(){
+            this.$store.commit('checkProdBuyer');
+            this.$store.commit('checkProdNames');
+            this.$store.commit('checkProdPersons');
+            if (this.$store.state.prodnamecheck && this.$store.state.prodbuyercheck && this.$store.state.prodpersoncheck)
+                this.$router.push('/results');
+        }
+    },
+    mounted(){
+        if(!this.$store.state.fcheck || !this.$store.state.namecheck)
+            this.$router.push('/');
+    }
 }
 </script>
 <style scoped>

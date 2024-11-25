@@ -13,7 +13,14 @@
 <script>
 
 export default {
-    
+    mounted(){
+        if(!this.$store.state.fcheck || !this.$store.state.namecheck)
+            this.$router.push('/');
+        
+        if (!this.$store.state.prodnamecheck && !this.$store.state.prodbuyercheck && !this.$store.state.prodpersoncheck){
+            this.$router.push('/calculating');
+        }
+    }
     
 }
 </script>

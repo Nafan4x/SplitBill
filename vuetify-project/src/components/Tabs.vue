@@ -39,13 +39,9 @@
       tab: null,
       depts: []
  
-    }),
-    computed: {
-        ...mapState({
-            persons: state => state.persons,
-        }),
-    },
-    
+    }), 
+
+ 
     computed: {
         ...mapState({
             persons: state => state.persons,
@@ -116,6 +112,7 @@
             }
 
             const list = Object.entries(finalDebts);
+            console.log(list)
             return list;
         }
     },

@@ -6,6 +6,9 @@
             :key=item.id
             @updateName="updateProductName"
             @updatePrice="updateProductPrice"
+            @updatePersons="updatePdoductPersons"
+            @updateBuyer="updateProductBuyer"
+            :persons="this.persons"
             >
         </ProductItem>
     </div>
@@ -24,8 +27,14 @@ export default {
             this.$store.commit('updateProductName', { id, name: value });
         },
         updateProductPrice({ id, value }) {
-                this.$store.commit('updateProductPrice', { id, name: value });
+            this.$store.commit('updateProductPrice', { id, name: value });
         },
+        updateProductBuyer({id, value}){
+            this.$store.commit('updateProductBuyer', { id, value: value.name });
+        },
+        updatePdoductPersons({id, value}){
+            this.$store.commit('updateProductPersons', {id, value: value.map(obj => obj.name)})
+        }
   },
 }
 </script>
