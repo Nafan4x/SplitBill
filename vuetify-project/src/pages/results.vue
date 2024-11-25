@@ -17,7 +17,7 @@ export default {
         if(!this.$store.state.fcheck || !this.$store.state.namecheck)
             this.$router.push('/');
         
-        if (!this.$store.state.prodnamecheck && !this.$store.state.prodbuyercheck && !this.$store.state.prodpersoncheck){
+        if (!this.$store.state.calcCheck.prodnamecheck && !this.$store.state.calcCheck.prodbuyercheck && !this.$store.state.calcCheck.prodpersoncheck){
             this.$router.push('/calculating');
         }
     }
@@ -38,6 +38,7 @@ export default {
         flex-direction: column;
         position: relative;
         align-items: center;
+        height: 100%;
     }
     h2{
         margin-top: 50px;

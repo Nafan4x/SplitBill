@@ -1,12 +1,18 @@
 <template >
-    <v-card class="card-person"  variant="outlined">
-            <h3>
-                Person {{ name }} should give
-            </h3>
-            <p>
-                {{dept}}
-            </p>
-        </v-card>
+    <v-card variant="outlined">
+            <div v-if="dept" class="card-person">
+              <h3>
+                  Person {{ name }} should give
+              </h3>
+              <p v-for="[key, value] in Object.entries(dept)">
+                  {{ key }} - {{ value.toFixed(2) }}
+              </p>
+            </div>
+            <div class="card-person" v-else>
+                <h3>No one owes anyone anything.</h3>
+            </div>
+    </v-card>
+    
 </template>
 <script>
 export default {
@@ -18,7 +24,7 @@ export default {
       },
       dept: {
         type: Object,
-        Required: true,
+        Required: false,
       }
     },
 }

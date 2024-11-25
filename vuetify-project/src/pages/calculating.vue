@@ -5,8 +5,7 @@
                 Add product
             </v-btn>
             <ProductList/>
-            <v-btn height="50" class="next-btn" @click="checkbtn">
-                Next
+            <v-btn id="nextbtn" height="50" class="next-btn"  :class="{'active': isActive}" @click="checkbtn" text="Next">
             </v-btn>
             
         </v-sheet>
@@ -15,13 +14,42 @@
 </template>
 <script>
 export default {
+    data(){
+        return{
+            isActive: false,
+        }
+    },
     methods:{
         checkbtn(){
             this.$store.commit('checkProdBuyer');
             this.$store.commit('checkProdNames');
             this.$store.commit('checkProdPersons');
-            if (this.$store.state.prodnamecheck && this.$store.state.prodbuyercheck && this.$store.state.prodpersoncheck)
+            this.$store.commit('checkProdLen');
+            console.log(this.$store.state.calcCheck.prodnamecheck)
+
+            const nextbtn = document.getElementById("nextbtn")
+            this.isActive = true;
+            setTimeout(() => {
+                this.isActive = false;
+            }, 1000);
+            
+            if (this.$store.state.calcCheck.prodnamecheck && this.$store.state.calcCheck.prodbuyercheck && this.$store.state.calcCheck.prodpersoncheck && this.$store.state.calcCheck.prodLen)
                 this.$router.push('/results');
+            else if(!this.$store.state.calcCheck.prodnamecheck){
+                nextbtn.textContent = 'Enter all names and prices'
+                
+            }
+            else if(!this.$store.state.calcCheck.prodbuyercheck){
+                
+                nextbtn.textContent = 'Select all buyers'
+            }
+            else if(!this.$store.state.calcCheck.prodpersoncheck){
+                
+                nextbtn.textContent = 'Select all users of the products'
+            }
+            else if(!this.$store.state.calcCheck.prodLen){
+                nextbtn.textContent = 'Add at least 2 products';
+            }
         }
     },
     mounted(){
@@ -52,5 +80,12 @@ export default {
         position: absolute;
         bottom: 0;
         left: 0;
+        transition: color 0.5s ease;
     }
+    .next-btn.active{
+        color: red;
+        transition: color 0.5s ease;
+    }
+
+
 </style>

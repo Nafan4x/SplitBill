@@ -6,25 +6,35 @@
     </v-tabs>
 
     <v-card-text>
-      <v-tabs-window v-model="tab">
+      <v-tabs-window v-model="tab" class="window-params">
         <v-tabs-window-item value="one" class="tab-item"> 
-            <TabItem
+           
+            <TabItem 
+                v-if="this.depts.length != 0"
                 v-for="item in this.depts"
                 :name="item[0]"
                 :dept="item[1]"
+                class="item"
             />
+
+            <TabItem v-else                
+            />
+            
 
         </v-tabs-window-item>
 
-        <v-tabs-window-item value="two" class="tab-item">
-            <v-card class="card-person" v-for="person in persons"  variant="outlined">
-                <h3>
-                    Person {{ person.name }} should be given
-                </h3>
-                <p>
-                     123 - 321   
-                </p>
-            </v-card>
+        <v-tabs-window-item value="two" class="tab-item"> 
+            <TabItem 
+                v-if="this.depts2.length != 0"
+                v-for="item in this.depts2"
+                :name="item[0]"
+                :dept="item[1]"
+                class="item"
+            />
+            <TabItem v-else                
+            />
+            
+
         </v-tabs-window-item>
 
       </v-tabs-window>
@@ -37,7 +47,8 @@
   export default {
     data: () => ({
       tab: null,
-      depts: []
+      depts: [],
+      depts2: undefined,
  
     }), 
 
@@ -51,10 +62,29 @@
     },
     mounted(){
         this.depts = this.calculateDebts(this.products);
+        this.depts2 = this.transformDebts(this.depts);
+        console.log('qwe', this.depts.length);
+        console.log(this.depts2.length);
+        
         
     },
     
     methods:{
+        transformDebts(debts) {
+            const reversedMap = new Map();
+
+            debts.forEach(([debtor, creditors]) => {
+                Object.entries(creditors).forEach(([creditor, amount]) => {
+                    if (!reversedMap.has(creditor)) {
+                        reversedMap.set(creditor, {});
+                    }
+                    reversedMap.get(creditor)[debtor] = amount;
+                });
+            });
+
+            // Преобразуем Map обратно в массив нужной структуры
+            return Array.from(reversedMap, ([debtor, creditors]) => [debtor, creditors]);
+        },
         calculateDebts(purchases) {
             const totalSpent = {};
             const totalDebt = {};
@@ -112,7 +142,7 @@
             }
 
             const list = Object.entries(finalDebts);
-            console.log(list)
+            
             return list;
         }
     },
@@ -122,19 +152,27 @@
 <style scoped>
     .card{
         width: 100%;
-        height: 100%;
+        
     }
     .tab{
         width: 50%;
     }
     .tab-item{
-        height: 100%;
+        
+        overflow-y: auto;
     }
     .card-person{
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 10px;
+    }
+    .item{
+        margin-bottom: 10px;
+    }
+    .window-params{
+        height: 470px;
+        overflow-y: auto;
     }
 
 </style>

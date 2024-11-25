@@ -15,6 +15,7 @@
                     <input 
                         placeholder="Price" 
                         class="inpt"
+                        type="number" name="quantity"
                         :value="product.price"
                         @input="onInputPrice"
                     />

@@ -7,7 +7,7 @@
             <PersonList class="list"
                 :persons="this.persons">
             </PersonList>
-            <v-btn  id='nextbtn' height="50" class="next-btn" @click="checkbtn" text="Next" style="transition: background-color 1s;">
+            <v-btn  id='nextbtn' :class="{'active': isActive}" height="50" class="next-btn" @click="checkbtn" text="Next">
                 
             </v-btn>
             <div ></div>
@@ -17,11 +17,23 @@
 <script>
 import { ref } from 'vue';
 export default {
+    data() {
+    return {
+      persons: undefined,
+      isActive: false,
+    };
+  },
     methods:{
         checkbtn(){
             this.$store.commit('checkPersons');
             this.$store.commit('checkPersonsName');
+            
             const nextbtn = document.getElementById("nextbtn")
+            
+            this.isActive = true;
+            setTimeout(() => {
+                this.isActive = false;
+            }, 1000);
 
             if(this.$store.state.fcheck){
                 if(this.$store.state.namecheck){
@@ -61,11 +73,17 @@ export default {
     
 }
 
+.next-btn.active{
+    color: red;
+    transition: color 0.5s ease;
+}
+
 .next-btn {
     width: 100%;
     border-top: 1px solid white;
     position: absolute;
     bottom: 0;
     left: 0;
+    transition: color 0.5s ease;
 }
 </style>
