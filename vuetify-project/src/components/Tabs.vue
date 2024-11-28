@@ -51,15 +51,13 @@
       depts2: undefined,
     }), 
 
- 
     computed: {
         ...mapState('persons', ['persons']),
-        ...mapState('products', ['products']),
-        
+        ...mapState('products', ['products']),  
     },
     mounted(){
-        this.depts = this.calculateDebts(this.products);
-        this.depts2 = this.transformDebts(this.depts);
+        this.depts = this.calculateDebts(this.products, this.persons);// Кто - кому
+        this.depts2 = this.transformDebts(this.depts);// Кому-кто
     },
     
     methods:{
@@ -77,62 +75,83 @@
 
             return Array.from(reversedMap, ([debtor, creditors]) => [debtor, creditors]);
         },
-        calculateDebts(purchases) {
+        transformData(data) {
+            return data.map((item) => ({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                persons: item.persons.map((person) => person.id.toString()), // Преобразуем id участников в строки
+                buyer: item.buyer.id.toString(), // Преобразуем id покупателя в строку
+        }))},
+
+        calculateDebts(purchases, persons) {
+            // Преобразуем массив persons в карту id -> name
+            const personsMap = persons.reduce((map, person) => {
+                map[person.id] = person.name;
+                return map;
+            }, {});
+
+            // Трансформируем данные
+            purchases = this.transformData(purchases);
+
             const totalSpent = {};
             const totalDebt = {};
 
             purchases.forEach((item) => {
                 const { price, buyer, persons } = item;
 
-
                 if (!totalSpent[buyer]) totalSpent[buyer] = 0;
                 totalSpent[buyer] += price;
 
-
                 const share = price / persons.length;
 
-
                 persons.forEach((user) => {
-                if (user !== buyer) {
-                    if (!totalDebt[user]) totalDebt[user] = {};
-                    if (!totalDebt[user][buyer]) totalDebt[user][buyer] = 0;
-                    totalDebt[user][buyer] += share;
+                    if (user !== buyer) {
+                        if (!totalDebt[user]) totalDebt[user] = {};
+                        if (!totalDebt[user][buyer]) totalDebt[user][buyer] = 0;
+                        totalDebt[user][buyer] += share;
                     }
                 });
             });
 
-
             const finalDebts = {};
 
             for (const debtor in totalDebt) {
-                for (const creditor in totalDebt[debtor]) 
-                {
-                const debt = totalDebt[debtor][creditor];
+                for (const creditor in totalDebt[debtor]) {
+                    const debt = totalDebt[debtor][creditor];
 
+                    if (totalDebt[creditor] && totalDebt[creditor][debtor]) {
+                        const counterDebt = totalDebt[creditor][debtor];
 
-                if (totalDebt[creditor] && totalDebt[creditor][debtor]) {
-                    const counterDebt = totalDebt[creditor][debtor];
-
-                    if (debt > counterDebt) 
-                    {
-                    if (!finalDebts[debtor]) finalDebts[debtor] = {};
-                    finalDebts[debtor][creditor] = debt - counterDebt;
-                    delete totalDebt[creditor][debtor];
-                    } 
-                    else if (debt < counterDebt) 
-                    {
-                    if (!finalDebts[creditor]) finalDebts[creditor] = {};
-                    finalDebts[creditor][debtor] = counterDebt - debt;
+                        if (debt > counterDebt) {
+                            if (!finalDebts[debtor]) finalDebts[debtor] = {};
+                            finalDebts[debtor][creditor] = debt - counterDebt;
+                            delete totalDebt[creditor][debtor];
+                        } else if (debt < counterDebt) {
+                            if (!finalDebts[creditor]) finalDebts[creditor] = {};
+                            finalDebts[creditor][debtor] = counterDebt - debt;
+                        }
+                    } else {
+                        if (!finalDebts[debtor]) finalDebts[debtor] = {};
+                        finalDebts[debtor][creditor] = debt;
                     }
-                } 
-                else {
-                    if (!finalDebts[debtor]) finalDebts[debtor] = {};
-                    finalDebts[debtor][creditor] = debt;
-                }
                 }
             }
-            const list = Object.entries(finalDebts);   
-            return list;
+
+            // Преобразуем ID в имена
+            const listWithNames = Object.entries(finalDebts).map(([debtorId, creditors]) => {
+                const debtorName = personsMap[debtorId] || `Unknown (${debtorId})`; // Заменяем id должника на имя
+                const creditorsWithNames = Object.entries(creditors).reduce((result, [creditorId, amount]) => {
+                    const creditorName = personsMap[creditorId] || `Unknown (${creditorId})`; // Заменяем id кредитора на имя
+                    result[creditorName] = amount;
+                    return result;
+                }, {});
+
+                return [debtorName, creditorsWithNames];
+            });
+
+            
+            return listWithNames;
         }
     },
   }

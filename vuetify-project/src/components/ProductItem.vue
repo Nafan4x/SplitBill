@@ -72,9 +72,12 @@
 <script>
 import Dialog from './Dialog.vue';
 import PersonButton from './PersonButton.vue';
-
+import { mapGetters } from 'vuex';
 
 export default {
+    computed: {
+        ...mapGetters('products', ['productById']),
+    },
     data() {
       return {
         isContainerVisible: false,
@@ -83,6 +86,7 @@ export default {
         selectedPersons: [],
       };
     },
+
     props:{
         product:{
             type: Object,
@@ -99,8 +103,7 @@ export default {
             this.$store.commit("products/delProduct", this.product.id)
         },
         onInputName(event) {
-            this.$emit("updateName", { id: this.product.id, value: event.target.value });
-            
+            this.$emit("updateName", { id: this.product.id, value: event.target.value });   
         },
         onInputPrice(event) {
             this.$emit("updatePrice", { id: this.product.id, value: event.target.value });
@@ -130,28 +133,35 @@ export default {
                 }
             }
             this.$emit("updatePersons", {id: this.product.id, value: this.selectedPersons.filter((selectedItem) => selectedItem.id != -1)});
-        }
+        },
+
     },
     watch:{
         buyer: function(value){
             this.$emit("updateBuyer", { id: this.product.id, value:value });
         }
     },
-    emits: ['updateName', 'updatePrice', 'updatePersons', 'updateBuyer'],
-
-    
+    mounted(){
+        if(this.product.persons){
+            this.selectedPersons = this.product.persons;
+        }
+        if(this.product.buyer){
+            this.buyer = this.product.buyer;
+        }
+    },
+    emits: ['updateName', 'updatePrice', 'updatePersons', 'updateBuyer'],   
 }
 </script>
 <style lang="scss" scoped>
     .person-container{
         width: 70%;
         height: 50px;
-        
         border-radius: 5px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        overflow-x:auto
+        overflow-x:auto;
+        white-space: nowrap;
     }
 
     .main-container {

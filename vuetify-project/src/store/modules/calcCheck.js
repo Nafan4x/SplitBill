@@ -1,3 +1,4 @@
+//модуль для проверки состояний на странице продуктов
 const state = {
     prodnamecheck: false,
     prodpersoncheck: false,
@@ -6,6 +7,7 @@ const state = {
 };
 
 const mutations = {
+    //проверка ввода имени и цены
     checkProdNames(state, products) {
         if (Array.isArray(products)) {
             state.prodnamecheck = products.every(item => item.name && item.price);
@@ -13,7 +15,7 @@ const mutations = {
             state.prodnamecheck = false;
         }
     },
-    
+    //проверка выбора покупателя
     checkProdBuyer(state, products) {
         if (Array.isArray(products)) {
             state.prodbuyercheck = products.every(item => item.buyer);
@@ -21,7 +23,7 @@ const mutations = {
             state.prodbuyercheck = false;
         }
     },
-    
+    //проверка выбора пользователей
     checkProdPersons(state, products) {
         if (Array.isArray(products)) {
             state.prodpersoncheck = products.every(item => item.persons && item.persons.length > 0);
@@ -29,7 +31,7 @@ const mutations = {
             state.prodpersoncheck = false;
         }
     },
-    
+    //проверка количества
     checkProdLen(state, products) {
         if (Array.isArray(products)) {
             state.prodLen = products.length > 1;

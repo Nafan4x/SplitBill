@@ -28,10 +28,10 @@ export default {
             this.$store.commit('products/updateProductPrice', { id, price: value }); // Исправлено
         },
         updateProductBuyer({ id, value }) {
-            this.$store.commit('products/updateProductBuyer', { id, value: value.name });
+            this.$store.commit('products/updateProductBuyer', { id, value: value });
         },
         updateProductPersons({ id, value }) {
-            this.$store.commit('products/updateProductPersons', { id, value: value.map(obj => obj.name) });
+            this.$store.commit('products/updateProductPersons', { id, value: value });
         }
     },
 }
