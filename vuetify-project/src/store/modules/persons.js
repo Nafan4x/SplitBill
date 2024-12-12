@@ -1,8 +1,8 @@
 const state = {
-    id: 1,
+    id: 0,
     persons: [],
-    fcheck: false,
-    namecheck: false,
+    isPersonLenValid: false,
+    isNameValid: false,
 };
 
 const mutations = {
@@ -20,17 +20,17 @@ const mutations = {
         }
     },
     checkPersons(state) {
-        state.fcheck = state.persons.length > 1;
+        state.isPersonLenValid = state.persons.length > 1;
     },
     checkPersonsName(state) {
-        state.namecheck = state.persons.every(item => item.name !== "");
+        state.isNameValid = state.persons.every(item => item.name !== "");
     },
 };
 
 const getters = {
     allPersons: (state) => state.persons,
-    isMultiplePersons: (state) => state.fcheck,
-    areAllNamesValid: (state) => state.namecheck,
+    isMultiplePersons: (state) => state.isPersonLenValid,
+    areAllNamesValid: (state) => state.isNameValid,
 };
 
 export default {

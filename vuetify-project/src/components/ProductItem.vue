@@ -1,92 +1,99 @@
 <template>
-        
-        <div class="mt-4 main-container">
-            <!-- Первый контейнер -->
-            <div class="first-container">
-                <v-card variant="outlined" class="card">
-                    <input  
-                        placeholder="Name" 
-                        class="inpt"
-                        :value="product.name"
-                        @input="onInputName"
-                    />
-                </v-card>
+  <div class="mt-4 main-container">
+    <!-- Первый контейнер -->
+    <div class="first-container">
+      <v-card 
+        variant="outlined"
+        class="card">
+        <input  
+          placeholder="Name" 
+          class="inpt"
+          :value="product.name"
+          @input="onInputName"
+        >
+      </v-card>
 
-                <v-card variant="outlined" class="card">
-                    <input 
-                        placeholder="Price" 
-                        class="inpt"
-                        type="number" name="quantity"
-                        :value="product.price"
-                        @input="onInputPrice"
-                    />
-                </v-card>
-                
-                <v-btn variant="outlined" height="50px"  @click="delProduct"> del </v-btn>
-
-                <v-btn variant="outlined" height="50px"  @click="toggleContainer"> V </v-btn>
-            </div>
-            <!-- Второй контейнер -->            
-            <div :class="['slide-container', { 'visible': isContainerVisible }]" id="product-item">
-                <!-- Список пользователей -->
-                <div class="person-container">
-                    <PersonButton
-                    :person="{id: -1, name: 'all'}"
-                    :selected-items="selectedPersons"
-                    @update:selected="updateSelectedItems">
-                        All
-                    </PersonButton>
-
-                    <PersonButton 
-                    v-for="item in this.persons"
-                    :person="item"
-                    :key="item.id"
-                    :selected-items="selectedPersons"
-                    @update:selected="updateSelectedItems">
-                        
-                    </PersonButton>
-                </div>
-                <!-- Выбор покупателя -->
-                <v-btn variant="outlined" height="50px" class="btn" @click="showDialog">   
-                    <h4>{{ this.buyer.name }}</h4>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" fill="white">
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4-3a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM4.216 8.928a6.458 6.458 0 0 0-2.47 2.398A1 1 0 0 0 2 12v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1a1 1 0 0 0-.216-.674 6.458 6.458 0 0 0-2.47-2.398C9.781 8.317 8.901 8 8 8c-.901 0-1.781.317-2.784.928z"/>
-                    </svg>
-                </v-btn>
-                <!-- Кнопка скрытия контейнера -->
-                <v-btn variant="outlined" height="50px" @click="toggleContainer">
-                    ^
-                </v-btn>
-
-            </div>
+      <v-card 
+        variant="outlined" 
+        class="card">
+        <input 
+          placeholder="Price" 
+          class="inpt"
+          type="number" 
+          name="quantity"
+          :value="product.price"
+          @input="onInputPrice"
+        >
+      </v-card>
             
-            
-        </div>
-    <!-- Выбор покупателя -->
-    <Dialog
-        v-model:show="isDialogVisible"
-        v-model:buyer="buyer"
-        :persons="this.persons">
-    </Dialog>
+      <v-btn 
+        variant="outlined"
+        height="50px"
+        @click="delProduct"
+      > 
+        del 
+      </v-btn>
+
+      <v-btn 
+        variant="outlined"
+        height="50px"
+        @click="toggleContainer"
+      > 
+        V
+      </v-btn>
+    </div>
+    <!-- Второй контейнер -->            
+    <div id="product-item" :class="['slide-container', { 'visible': isContainerVisible }]">
+      <!-- Список пользователей -->
+      <div class="person-container">
+        <PersonButton
+          :person="{id: -1, name: 'all'}"
+          :selected-items="selectedPersons"
+          @update:selected="updateSelectedItems"
+        >
+          All 
+        </PersonButton>
+
+        <PersonButton 
+          v-for="item in persons"
+          :key="item.id"
+          :person="item"
+          :selected-items="selectedPersons"
+          @update:selected="updateSelectedItems"
+        />
+      </div>
+      <!-- Выбор покупателя -->
+      <v-btn
+        variant="outlined"
+        height="50px"
+        class="btn"
+        @click="showDialog"
+      >   
+        <h4>{{ this.buyer.name }}</h4>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" fill="white">
+          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4-3a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM4.216 8.928a6.458 6.458 0 0 0-2.47 2.398A1 1 0 0 0 2 12v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1a1 1 0 0 0-.216-.674 6.458 6.458 0 0 0-2.47-2.398C9.781 8.317 8.901 8 8 8c-.901 0-1.781.317-2.784.928z"/>
+        </svg>         
+      </v-btn>
+      <!-- Кнопка скрытия контейнера -->
+      <v-btn variant="outlined" height="50px" @click="toggleContainer">
+        ^
+      </v-btn>
+    </div>
+  </div>
+  <!-- Выбор покупателя -->
+  <Dialog
+    v-model:show="isDialogVisible"
+    v-model:buyer="buyer"
+    :persons="persons"
+  />
 </template>
+
 <script>
 import Dialog from './Dialog.vue';
 import PersonButton from './PersonButton.vue';
 import { mapGetters } from 'vuex';
 
 export default {
-    computed: {
-        ...mapGetters('products', ['productById']),
-    },
-    data() {
-      return {
-        isContainerVisible: false,
-        isDialogVisible: false,
-        buyer: '',
-        selectedPersons: [],
-      };
-    },
-
     props:{
         product:{
             type: Object,
@@ -97,9 +104,34 @@ export default {
             required: true,
         }
     },
+    emits: ['updateName', 'updatePrice', 'updatePersons', 'updateBuyer'],   
+    data() {
+        return {
+            isContainerVisible: false,
+            isDialogVisible: false,
+            buyer: '',
+            selectedPersons: [],
+        };
+    },
+    computed: {
+        ...mapGetters('products', ['productById']),
+    },
+    watch:{
+        buyer: function(value){
+            this.$emit("updateBuyer", { id: this.product.id, value:value });
+        }
+    },
+    mounted(){
+        if(this.product.persons){
+            this.selectedPersons = this.product.persons;
+        }
+        if(this.product.buyer){
+            this.buyer = this.product.buyer;
+        }
+    },
+    
     methods:{
         delProduct(){
-            console.log(this.product)
             this.$store.commit("products/delProduct", this.product.id)
         },
         onInputName(event) {
@@ -136,20 +168,6 @@ export default {
         },
 
     },
-    watch:{
-        buyer: function(value){
-            this.$emit("updateBuyer", { id: this.product.id, value:value });
-        }
-    },
-    mounted(){
-        if(this.product.persons){
-            this.selectedPersons = this.product.persons;
-        }
-        if(this.product.buyer){
-            this.buyer = this.product.buyer;
-        }
-    },
-    emits: ['updateName', 'updatePrice', 'updatePersons', 'updateBuyer'],   
 }
 </script>
 <style lang="scss" scoped>

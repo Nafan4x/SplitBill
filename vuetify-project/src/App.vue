@@ -6,10 +6,6 @@
   </v-app>
 </template>
 
-<script setup>
-  //
-</script>
-  
 <style>
 body {
   scrollbar-width: thin;

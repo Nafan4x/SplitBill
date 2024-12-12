@@ -1,17 +1,16 @@
 <template>
-    <div class="person-list">
-        <ProductItem 
-            v-for="item in products"
-            :product=item
-            :key=item.id
-            @updateName="updateProductName"
-            @updatePrice="updateProductPrice"
-            @updatePersons="updateProductPersons"
-            @updateBuyer="updateProductBuyer"
-            :persons="this.persons"
-            >
-        </ProductItem>
-    </div>
+  <div class="person-list">
+    <ProductItem 
+      v-for="item in products"
+      :key="item.id"
+      :product="item"
+      :persons="persons"
+      @updateName="updateProductName"
+      @updatePrice="updateProductPrice"
+      @updatePersons="updateProductPersons"
+      @updateBuyer="updateProductBuyer"
+    />
+  </div>
 </template>
 <script>
 import {mapState} from 'vuex'

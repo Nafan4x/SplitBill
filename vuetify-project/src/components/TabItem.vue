@@ -1,30 +1,37 @@
-<template >
-    <v-card variant="outlined">
-            <div v-if="dept" class="card-person">
-              <h3>
-                  Person {{ name }} should give
-              </h3>
-              <p v-for="[key, value] in Object.entries(dept)">
-                  {{ key }} - {{ value.toFixed(2) }}
-              </p>
-            </div>
-            <div class="card-person" v-else>
-                <h3>No one owes anyone anything.</h3>
-            </div>
-    </v-card>
+<template>
+  <v-card variant="outlined">
+    <div 
+      v-if="dept"
+      class="card-person"
+    >
+      <h3>
+        Person {{ name }} should give
+      </h3>
+      <p v-for="[key, value] in Object.entries(dept)">
+        {{ key }} - {{ value.toFixed(2) }}
+      </p>
+    </div>
+    <div 
+      v-else 
+      class="card-person"
+    >
+      <h3>No one owes anyone anything.</h3>
+    </div>
+  </v-card>
 </template>
 <script>
 export default {
     props:{
-      name: {
-        type: String,
-        Required: true,
+        name: {
+            type: String,
+            required: true,
 
-      },
-      dept: {
-        type: Object,
-        Required: false,
-      }
+        },
+        
+        dept: {
+            type: Object,
+            default: () => null,
+        }
     },
 }
 </script>

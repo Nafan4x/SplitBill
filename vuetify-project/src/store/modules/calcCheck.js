@@ -1,57 +1,33 @@
 //модуль для проверки состояний на странице продуктов
 const state = {
-    prodnamecheck: false,
-    prodpersoncheck: false,
-    prodbuyercheck: false,
-    prodLen: false,
+    isProdNameValid: false,
+    isProdPersonValid: false,
+    isProdBuyerValid: false,
+    isProdLenValid: false,
 };
 
 const mutations = {
     //проверка ввода имени и цены
     checkProdNames(state, products) {
-        if (Array.isArray(products)) {
-            state.prodnamecheck = products.every(item => item.name && item.price);
-        } else {
-            state.prodnamecheck = false;
-        }
+        state.isProdNameValid = Array.isArray(products) && products.every(item => item.name && item.price);
     },
     //проверка выбора покупателя
     checkProdBuyer(state, products) {
-        if (Array.isArray(products)) {
-            state.prodbuyercheck = products.every(item => item.buyer);
-        } else {
-            state.prodbuyercheck = false;
-        }
+        state.isProdBuyerValid = Array.isArray(products) && products.every(item => item.buyer);
     },
     //проверка выбора пользователей
     checkProdPersons(state, products) {
-        if (Array.isArray(products)) {
-            state.prodpersoncheck = products.every(item => item.persons && item.persons.length > 0);
-        } else {
-            state.prodpersoncheck = false;
-        }
+        state.isProdPersonValid = Array.isArray(products) && products.every(item => item.persons && item.persons.length);
     },
     //проверка количества
     checkProdLen(state, products) {
-        if (Array.isArray(products)) {
-            state.prodLen = products.length > 1;
-        } else {
-            state.prodLen = false;
-        }
+        state.isProdLenValid = Array.isArray(products) && products.length > 1;
     }
     
-};
-
-const getters = {
-    isProdNamesValid: (state) => state.prodnamecheck,
-    isProdBuyerValid: (state) => state.prodbuyercheck,
-    isProdPersonsValid: (state) => state.prodpersoncheck,
-    isProductCountValid: (state) => state.prodLen,
 };
 
 export default {
     namespaced: true,
     state,
     mutations,
-    getters,
 };

@@ -1,12 +1,21 @@
 <template>
-    <div class="person-item">
-        <v-card variant="outlined" class="card">
-            <input :value="person.name" @input="onInput" class="inpt"/>
-        </v-card>
-        <v-btn variant="outlined" height="50px" @click="delPerson">
-            -
-        </v-btn>
-    </div>
+  <div class="person-item">
+    <v-card variant="outlined" class="card">
+      <input 
+        class="inpt"
+        :value="person.name" 
+        @input="onInput" 
+      >
+    </v-card>
+        
+    <v-btn 
+      variant="outlined" 
+      height="50px" 
+      @click="delPerson"
+    >
+      -
+    </v-btn>
+  </div>
 </template>
 <script>
 export default {
@@ -18,7 +27,6 @@ export default {
     },
     methods:{
         delPerson(){
-            console.log(this.person)
             this.$store.commit("persons/delPerson", this.person.id)
         },
         onInput(event) {

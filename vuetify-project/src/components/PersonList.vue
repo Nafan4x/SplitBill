@@ -5,7 +5,7 @@
             :person=item
             :key=item.id
             @update="updatePersonName"
-            >
+            >   
         </PersonItem>
     </div>
 </template>

@@ -1,54 +1,72 @@
 <template>
   <v-card class="card">
-    <v-tabs v-model="tab" bg-color="#212121">
-      <v-tab class='tab' value="one">who to whom</v-tab>
-      <v-tab class='tab' value="two">to whom who</v-tab>
+    <v-tabs 
+      v-model="tab" 
+      bg-color="#212121"
+    >
+      <v-tab 
+        class="tab"
+        value="one" 
+        text="who to whom"
+      />
+      <v-tab 
+        class="tab"
+        value="two"
+        text="to whom who"
+      />
     </v-tabs>
 
     <v-card-text>
-      <v-tabs-window v-model="tab" class="window-params">
-        <v-tabs-window-item value="one" class="tab-item"> 
-           
-            <TabItem 
-                v-if="this.depts.length != 0"
-                v-for="item in this.depts"
-                :name="item[0]"
-                :dept="item[1]"
-                class="item"
-            />
+      <v-tabs-window 
+        v-model="tab"
+        class="window-params"
+      >
+        <v-tabs-window-item 
+          value="one"
+          class="tab-item"
+        > 
+          <TabItem 
+            v-for="item in depts"
+            v-if="depts.length != 0"
+            :key="item.id"
+            :name="item[0]"
+            :dept="item[1]"
+            class="item"
+          />
 
-            <TabItem v-else                
-            />
-            
-
+          <TabItem 
+            v-else
+          />
         </v-tabs-window-item>
 
-        <v-tabs-window-item value="two" class="tab-item"> 
-            <TabItem 
-                v-if="this.depts2.length != 0"
-                v-for="item in this.depts2"
-                :name="item[0]"
-                :dept="item[1]"
-                class="item"
-            />
-            <TabItem v-else                
-            />
-            
-
+        <v-tabs-window-item 
+          value="two"
+          class="tab-item"
+        > 
+          <TabItem 
+            v-for="item in this.depts2"
+            v-if="this.depts2.length != 0"
+            :key="item.id"
+            :name="item[0]"
+            :dept="item[1]"
+            class="item"
+          />
+          <TabItem 
+            v-else                
+          />
         </v-tabs-window-item>
-
       </v-tabs-window>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  export default {
+import {mapState} from 'vuex'
+export default {
     data: () => ({
-      tab: null,
-      depts: [],
-      depts2: undefined,
+        tab: null,
+        depts: [],
+        depts2: undefined,
     }), 
 
     computed: {
@@ -82,7 +100,7 @@
                 price: item.price,
                 persons: item.persons.map((person) => person.id.toString()), // Преобразуем id участников в строки
                 buyer: item.buyer.id.toString(), // Преобразуем id покупателя в строку
-        }))},
+            }))},
 
         calculateDebts(purchases, persons) {
             // Преобразуем массив persons в карту id -> name
@@ -154,7 +172,7 @@
             return listWithNames;
         }
     },
-  }
+}
 </script>
 
 <style scoped>

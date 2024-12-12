@@ -1,31 +1,49 @@
 <template>
-    <div class="dialog" v-if="show" @click.stop="hideDialog">
-        <div @click.stop class="dialog-content">
-            <h1>Choose buyer</h1>
-            <v-radio-group v-model="buyer" class="radio-group">
-                <div v-for="item in this.persons" class="person-card">
-                        <h3>{{ item.name }}</h3>
-                        <v-radio v-bind:value=item style="flex: none"  @change="addBuyer"></v-radio>
-                </div>
-            </v-radio-group>
+  <div 
+    v-if="show" 
+    class="dialog"
+    @click.stop="hideDialog"
+  >
+    <div 
+      class="dialog-content"
+      @click.stop 
+    >
+      <h1>Choose buyer</h1>
+      <v-radio-group 
+        v-model="buyer" 
+        class="radio-group"
+      >
+        <div 
+          v-for="item in persons"
+          :key="item.id"
+          class="person-card"
+        >
+          <h3>{{ item.name }}</h3>
+          <v-radio 
+            :value="item" 
+            style="flex: none"  
+            @change="addBuyer"
+          />
         </div>
+      </v-radio-group>
     </div>
+  </div>
 </template> 
 <script>
 export default {
-    data(){
-        return{
-            buyer: ''
-        }
-    },
     props:{
         show: {
             type: Boolean,
-            Required: true,
+            required: true,
         },
         persons: {
             type: Array,
-            Required: true,
+            required: true,
+        }
+    },
+    data(){
+        return{
+            buyer: null
         }
     },
     methods:{

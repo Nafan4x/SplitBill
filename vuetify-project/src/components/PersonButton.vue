@@ -1,30 +1,28 @@
-<template >
+<template>
+  <v-btn
+    :class="{'active-color' : isSelected}"
+    height="50px"
+    class="transition-btn"
+    @click="toggleButton"
+  >   
+    <slot>
+    </slot>
 
-        <v-btn
-            :class="{'active-color' : isSelected}"
-            @click="toggleButton"
-            class="transition-btn"
-            height="50px"
-            >   
-            <slot>
-
-            </slot>
-            <div v-if="person.name != 'all'">
-                {{ this.person.name }}
-            </div>
-            
-        </v-btn>
-
+    <div v-if="person.name != 'all'">
+      {{ person.name }}
+    </div>        
+  </v-btn>
 </template>
 <script>
 export default {
     props:{
         person:{
             type: Object,
-            Required: true, 
+            required: true, 
         },
         selectedItems:{
             type: Array,
+            default: () => [],
         }
     },
     computed:{
