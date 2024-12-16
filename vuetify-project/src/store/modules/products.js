@@ -11,28 +11,10 @@ const mutations = {
     delProduct(state, id) {
         state.products = state.products.filter(item => item.id !== id);
     },
-    updateProductName(state, { id, name }) {
+    updateProduct(state, { id, field, value }) {
         const item = state.products.find(item => item.id === id);
         if (item) {
-            item.name = name;
-        }
-    },
-    updateProductPrice(state, { id, price }) {
-        const item = state.products.find(item => item.id === id);
-        if (item) {
-            item.price = price;
-        }
-    },
-    updateProductPersons(state, { id, value }) {
-        const item = state.products.find(item => item.id === id);
-        if (item) {
-            item.persons = value;
-        }
-    },
-    updateProductBuyer(state, { id, value }) {
-        const item = state.products.find(item => item.id === id);
-        if (item) {
-            item.buyer = value;
+            item[field] = value;
         }
     },
 };

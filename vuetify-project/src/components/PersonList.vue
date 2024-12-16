@@ -1,16 +1,16 @@
 <template>
-    <div class="person-list">
-        <PersonItem 
-            v-for="item in persons"
-            :person=item
-            :key=item.id
-            @update="updatePersonName"
-            >   
-        </PersonItem>
-    </div>
+  <div class="person-list">
+    <PersonItem 
+      v-for="item in persons"
+      :key="item.id"
+      :person="item"
+      @update="updatePersonName"
+    />   
+  </div>
 </template>
 <script>
 import {mapState} from 'vuex'
+import PersonButton from './PersonButton.vue';
 export default {
     computed: {
         ...mapState('persons', ['persons'])
@@ -18,8 +18,8 @@ export default {
     methods: {
         updatePersonName({ id, value }) {
             this.$store.commit('persons/updatePersonName', { id, name: value });
+        },
     },
-  },
 }
 </script>
 <style>

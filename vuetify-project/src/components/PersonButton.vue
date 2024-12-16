@@ -3,14 +3,9 @@
     :class="{'active-color' : isSelected}"
     height="50px"
     class="transition-btn"
-    @click="toggleButton"
-  >   
-    <slot>
-    </slot>
-
-    <div v-if="person.name != 'all'">
-      {{ person.name }}
-    </div>        
+    @click="OnClickSelected"
+  >
+    {{ person.name }}
   </v-btn>
 </template>
 <script>
@@ -32,7 +27,7 @@ export default {
     },
 
     methods:{
-        toggleButton(){
+        OnClickSelected(){
             this.$emit('update:selected', this.person, !this.isSelected)
         },
     },
@@ -51,8 +46,8 @@ export default {
         min-width: 40px;
     }
     .active-color{
-        background-color: gray !important;
-        color: rgb(var(--v-theme-surface)) !important;
+        background-color: gray;
+        color: rgb(var(--v-theme-surface));
         flex: 1;
     }
 </style>

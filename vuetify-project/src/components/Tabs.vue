@@ -44,8 +44,8 @@
           class="tab-item"
         > 
           <TabItem 
-            v-for="item in this.depts2"
-            v-if="this.depts2.length != 0"
+            v-for="item in depts2"
+            v-if="depts2.length != 0"
             :key="item.id"
             :name="item[0]"
             :dept="item[1]"
@@ -62,11 +62,12 @@
 
 <script>
 import {mapState} from 'vuex'
+import TabItem from './TabItem.vue';
 export default {
     data: () => ({
         tab: null,
         depts: [],
-        depts2: undefined,
+        depts2: [],
     }), 
 
     computed: {
@@ -195,7 +196,7 @@ export default {
         margin-bottom: 10px;
     }
     .window-params{
-        height: 470px;
+        height: 440px;
         overflow-y: auto;
     }
 </style>

@@ -7,7 +7,10 @@
       <h3>
         Person {{ name }} should give
       </h3>
-      <p v-for="[key, value] in Object.entries(dept)">
+      <p 
+        v-for="[key, value] in Object.entries(dept)"
+        :key="key.id"  
+      >
         {{ key }} - {{ value.toFixed(2) }}
       </p>
     </div>

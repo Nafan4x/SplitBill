@@ -2,7 +2,7 @@
   <div class="person-item">
     <v-card variant="outlined" class="card">
       <input 
-        class="inpt"
+        class="input-name"
         :value="person.name" 
         @input="onInput" 
       >
@@ -11,7 +11,7 @@
     <v-btn 
       variant="outlined" 
       height="50px" 
-      @click="delPerson"
+      @click="OnClickDelPerson"
     >
       -
     </v-btn>
@@ -26,7 +26,7 @@ export default {
         }
     },
     methods:{
-        delPerson(){
+        OnClickDelPerson(){
             this.$store.commit("persons/delPerson", this.person.id)
         },
         onInput(event) {
@@ -37,13 +37,10 @@ export default {
 }
 </script>
 <style scoped>
-    .inpt{
+    .input-name{
         width: 100%;
         height: 50px;
         padding-left: 10px;
-        border: 0px;
-    }
-    .inpt:focus{
         border: 0px;
     }
     .person-item{

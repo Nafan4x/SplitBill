@@ -10,11 +10,17 @@
       class="container"
     >
       <Tabs />
+      <v-btn 
+        height="50" 
+        class="back-btn"
+        text="Back"
+        @click="OnClickBack" 
+      />
     </v-sheet>
   </div>
 </template>
 <script>
-
+import Tabs from '@/components/Tabs.vue';
 export default {
     
     mounted(){ //переадресация
@@ -23,6 +29,11 @@ export default {
         if (!this.$store.state.calcCheck.isProdNameValid && !this.$store.state.calcCheck.isProdBuyerValid && !this.$store.state.calcCheck.isProdPersonValid){
             this.$router.push('/ProductPage');
         }
+    },
+    methods: {
+        OnClickBack(){
+            this.$router.push('/ProductPage');  
+        },
     }
 }
 </script>
@@ -39,5 +50,13 @@ export default {
     }
     h2{
         margin-top: 50px;
+    }
+    .back-btn {
+        width: 100%;
+        border-top: 1px solid white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: color 0.5s ease;
     }
 </style>

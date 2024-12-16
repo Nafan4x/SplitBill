@@ -4,10 +4,11 @@
     <div class="first-container">
       <v-card 
         variant="outlined"
-        class="card">
+        class="card"
+      >
         <input  
           placeholder="Name" 
-          class="inpt"
+          class="input"
           :value="product.name"
           @input="onInputName"
         >
@@ -15,10 +16,11 @@
 
       <v-card 
         variant="outlined" 
-        class="card">
+        class="card"
+      >
         <input 
           placeholder="Price" 
-          class="inpt"
+          class="input"
           type="number" 
           name="quantity"
           :value="product.price"
@@ -29,7 +31,7 @@
       <v-btn 
         variant="outlined"
         height="50px"
-        @click="delProduct"
+        @click="OnClickDelProduct"
       > 
         del 
       </v-btn>
@@ -37,7 +39,7 @@
       <v-btn 
         variant="outlined"
         height="50px"
-        @click="toggleContainer"
+        @click="OnClickChangeContainer"
       > 
         V
       </v-btn>
@@ -47,12 +49,10 @@
       <!-- Список пользователей -->
       <div class="person-container">
         <PersonButton
-          :person="{id: -1, name: 'all'}"
+          :person="{id: null, name: 'all'}"
           :selected-items="selectedPersons"
           @update:selected="updateSelectedItems"
-        >
-          All 
-        </PersonButton>
+        />
 
         <PersonButton 
           v-for="item in persons"
@@ -69,13 +69,15 @@
         class="btn"
         @click="showDialog"
       >   
-        <h4>{{ this.buyer.name }}</h4>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" fill="white">
-          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4-3a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM4.216 8.928a6.458 6.458 0 0 0-2.47 2.398A1 1 0 0 0 2 12v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1a1 1 0 0 0-.216-.674 6.458 6.458 0 0 0-2.47-2.398C9.781 8.317 8.901 8 8 8c-.901 0-1.781.317-2.784.928z"/>
-        </svg>         
+        <h4>{{ buyer.name }}</h4>
+        <v-icon>mdi-account</v-icon>       
       </v-btn>
       <!-- Кнопка скрытия контейнера -->
-      <v-btn variant="outlined" height="50px" @click="toggleContainer">
+      <v-btn 
+        variant="outlined"
+        height="50px"
+        @click="OnClickChangeContainer"
+      >
         ^
       </v-btn>
     </div>
@@ -94,6 +96,7 @@ import PersonButton from './PersonButton.vue';
 import { mapGetters } from 'vuex';
 
 export default {
+    components: [Dialog, PersonButton],
     props:{
         product:{
             type: Object,
@@ -131,7 +134,7 @@ export default {
     },
     
     methods:{
-        delProduct(){
+        OnClickDelProduct(){
             this.$store.commit("products/delProduct", this.product.id)
         },
         onInputName(event) {
@@ -140,31 +143,25 @@ export default {
         onInputPrice(event) {
             this.$emit("updatePrice", { id: this.product.id, value: event.target.value });
         },
-        toggleContainer() {
+        OnClickChangeContainer() {
             this.isContainerVisible = !this.isContainerVisible;
         },
         showDialog(){
             this.isDialogVisible = true;
         },
-        addUser(person){
-            this.test.push(person)
-        },
         updateSelectedItems(item, isActive){
-            if (item.id === -1){
-                if (isActive){  
-                    this.selectedPersons = this.persons.concat([item]);
-                }else{
-                    this.selectedPersons = [];
-                }
+            if (item.id === null){
+                this.selectedPersons = isActive ? this.persons.concat([item]) : [];
             }
             else{
                 if (isActive){
                     this.selectedPersons.push(item);
                 }else{
-                    this.selectedPersons = this.selectedPersons.filter((selectedItem) => (selectedItem.id != item.id) && (selectedItem.id != -1))
+                    this.selectedPersons = this.selectedPersons.filter((selectedItem) => (selectedItem.id != item.id) && (selectedItem.id != null))
                 }
+                
             }
-            this.$emit("updatePersons", {id: this.product.id, value: this.selectedPersons.filter((selectedItem) => selectedItem.id != -1)});
+            this.$emit("updatePersons", {id: this.product.id, value: this.selectedPersons.filter((selectedItem) => selectedItem.id != null)});
         },
 
     },
@@ -215,14 +212,11 @@ export default {
             opacity: 1;
         }
     }
-    .inpt{
+    .input{
         width: 100%;
         height: 50px;
         padding-left: 10px;
         border: 0px;  
-    }
-    .inpt:focus{
-        border: 0px;
     }
     .card{
         width: 37%;

@@ -13,7 +13,8 @@
   </div>
 </template>
 <script>
-import {mapState} from 'vuex'
+import {mapState} from 'vuex';
+import ProductItem from './ProductItem.vue';
 export default {
     computed: {
         ...mapState('persons', ['persons']),
@@ -21,16 +22,16 @@ export default {
     },
     methods: {
         updateProductName({ id, value }) {
-            this.$store.commit('products/updateProductName', { id, name: value });
+            this.$store.commit('products/updateProduct', { id, field: 'name', value: value });
         },
         updateProductPrice({ id, value }) {
-            this.$store.commit('products/updateProductPrice', { id, price: value }); // Исправлено
+            this.$store.commit('products/updateProduct', { id, field: 'price', value: value });
         },
         updateProductBuyer({ id, value }) {
-            this.$store.commit('products/updateProductBuyer', { id, value: value });
+            this.$store.commit('products/updateProduct', { id, field: 'buyer', value: value });
         },
         updateProductPersons({ id, value }) {
-            this.$store.commit('products/updateProductPersons', { id, value: value });
+            this.$store.commit('products/updateProduct', { id, field: 'persons', value: value });
         }
     },
 }

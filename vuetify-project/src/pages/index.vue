@@ -9,7 +9,7 @@
       <v-btn 
         height="50"
         class="add-btn"
-        @click="addPerson"
+        @click="OnClickAddPerson"
         text="Add person"
       />
 
@@ -23,13 +23,13 @@
         class="next-btn"
         :text="buttonText"
         :class="{'active': isActive}"
-        @click="checkbtn"
+        @click="OnClickCheckBtn"
       />         
     </v-sheet>  
   </div>
 </template>
 <script>
-
+import PersonList from '@/components/PersonList.vue';
 export default {
     data() {
         return {
@@ -39,10 +39,10 @@ export default {
         };
     },
     methods:{
-        addPerson(){
+        OnClickAddPerson(){
             this.$store.commit('persons/addPerson')
         },
-        checkbtn(){
+        OnClickCheckBtn(){
             this.$store.commit('persons/checkPersons');
             this.$store.commit('persons/checkPersonsName');
 

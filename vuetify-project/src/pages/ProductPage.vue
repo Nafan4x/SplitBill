@@ -10,24 +10,32 @@
         height="50"
         class="add-btn"
         text="Add product"
-        @click="addBtn"
+        @click="OnClickAddProduct"
       />
             
       <ProductList />
-            
-      <v-btn 
-        id="nextbtn" 
-        :class="{'active': isActive}"
-        height="50" 
-        class="next-btn"
-        :text="buttonText"
-        @click="checkbtn" 
-      />
+      <div class="navigation-buttons">
+        <v-btn 
+          :class="{'active': isActive}"
+          height="50" 
+          class="back-btn"
+          text="Back"
+          @click="OnClickBack" 
+        />
+        <v-btn
+          :class="{'active': isActive}"
+          height="50" 
+          class="next-btn"
+          :text="buttonText"
+          @click="OnClickCheckBtn" 
+        />
+      </div>
     </v-sheet>
   </div>  
 </template>
 <script>
 import {mapState} from 'vuex'
+import ProductList from '@/components/ProductList.vue';
 export default {
     data(){
         return{
@@ -42,11 +50,14 @@ export default {
         if(!this.$store.state.persons.isPersonLenValid || !this.$store.state.persons.isNameValid)
             this.$router.push('/');
     },
-    methods:{
-        addBtn(){
+    methods: {
+        OnClickBack(){
+            this.$router.push('/');
+        },
+        OnClickAddProduct(){
             this.$store.commit('products/addProduct')
         },
-        checkbtn(){
+        OnClickCheckBtn(){
             this.$store.commit('calcCheck/checkProdBuyer', this.products);
             this.$store.commit('calcCheck/checkProdNames', this.products);
             this.$store.commit('calcCheck/checkProdPersons', this.products);
@@ -83,8 +94,22 @@ export default {
         border-bottom: 1px solid white;
     }
     .next-btn {
-        width: 100%;
+        width: 50%;
         border-top: 1px solid white;
+        border-left: 1px solid white;
+        border-top-left-radius: 1px;
+        border-bottom-left-radius: 1px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        transition: color 0.5s ease;
+    }
+    .back-btn {
+        width: 50%;
+        border-top: 1px solid white;
+        border-right: 1px solid white;
+        border-top-right-radius: 1px;
+        border-bottom-right-radius: 1px;
         position: absolute;
         bottom: 0;
         left: 0;
