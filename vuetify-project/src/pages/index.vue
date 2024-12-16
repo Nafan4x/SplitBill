@@ -68,24 +68,20 @@ export default {
 </script>
 <style scoped>
   @import '@/styles/pages.css';
-
   .add-btn {
     width: 100%;
     border-bottom: 1px solid white;
   }
-
   .list {
     margin-top: 10px;
     flex: 1;
     overflow-y: auto;
     
   }
-
   .next-btn.active{
     color: red;
     transition: color 0.5s ease;
   }
-
   .next-btn {
     width: 100%;
     border-top: 1px solid white;

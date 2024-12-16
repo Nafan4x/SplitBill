@@ -27,14 +27,13 @@ export default {
     },
     computed:{
         isSelected(){
-            return this.selectedItems?.some((selectedItem) => selectedItem.id === this.person.id) || false;
+            return this.selectedItems?.some((selectedItem) => selectedItem.id === this.person.id);
         }
     },
 
     methods:{
         toggleButton(){
-            const newState = !this.isSelected;
-            this.$emit('update:selected', this.person, newState)
+            this.$emit('update:selected', this.person, !this.isSelected)
         },
     },
     
@@ -50,16 +49,10 @@ export default {
         margin-right: 5px;
         margin-left: 5px;
         min-width: 40px;
-
-
-        
-
     }
-
     .active-color{
         background-color: gray !important;
         color: rgb(var(--v-theme-surface)) !important;
         flex: 1;
-
     }
 </style>

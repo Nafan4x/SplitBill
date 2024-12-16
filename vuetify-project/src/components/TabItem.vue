@@ -41,8 +41,6 @@ export default {
         flex-direction: column;
         align-items: center;
         padding: 10px;
-        margin-bottom: 20px;
-        
+        margin-bottom: 20px;   
     }
-
 </style>

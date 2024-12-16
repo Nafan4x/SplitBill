@@ -181,7 +181,6 @@ export default {
         overflow-x:auto;
         white-space: nowrap;
     }
-
     .main-container {
         position: relative; /* Нужно для выезжающего контейнера */
         overflow: hidden; /* Скрываем выезжающий контент за границами */
@@ -189,7 +188,6 @@ export default {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        
     }
     .first-container{
         position: relative; /* Нужно для выезжающего контейнера */
@@ -200,8 +198,6 @@ export default {
         justify-content: space-between;
         width: 98%;
     }
-
-
     .slide-container {
         position: absolute;
         bottom: 100%; /* Изначально скрыт за пределами основного контейнера */
@@ -214,7 +210,6 @@ export default {
         display: flex;
         justify-content: space-between;
         height: 60px;
-
         &.visible {
             transform: translateY(100%); /* Выезжает внутрь основного контейнера */
             opacity: 1;
@@ -224,13 +219,11 @@ export default {
         width: 100%;
         height: 50px;
         padding-left: 10px;
-        border: 0px;
-        
+        border: 0px;  
     }
     .inpt:focus{
         border: 0px;
     }
-
     .card{
         width: 37%;
     }

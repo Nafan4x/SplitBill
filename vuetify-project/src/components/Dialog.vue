@@ -65,8 +65,6 @@ export default {
     width: 100%;
     padding: 5px;
     max-height: 40px
-    
-    
 }
 .dialog{
     top:0;
@@ -77,7 +75,6 @@ export default {
     display: flex;
     background: rgba(0, 0, 0, 0.7);
     z-index: 3;
-    
 }
 .dialog-content{
     margin: auto;

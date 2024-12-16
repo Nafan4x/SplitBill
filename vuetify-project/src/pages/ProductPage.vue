@@ -94,6 +94,4 @@ export default {
         color: red;
         transition: color 0.5s ease;
     }
-
-
 </style>
