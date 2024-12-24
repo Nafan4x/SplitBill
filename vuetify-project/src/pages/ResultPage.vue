@@ -20,25 +20,25 @@
   </div>
 </template>
 <script>
-import Tabs from '@/components/Tabs.vue';
+import Tabs from "@/components/Tabs.vue";
 export default {
-    
+    components: [Tabs],
     mounted(){ //переадресация
         if(!this.$store.state.persons.isPersonLenValid || !this.$store.state.persons.isNameValid)
-            this.$router.push('/');
-        if (!this.$store.state.calcCheck.isProdNameValid && !this.$store.state.calcCheck.isProdBuyerValid && !this.$store.state.calcCheck.isProdPersonValid){
-            this.$router.push('/ProductPage');
+            this.$router.push("/");
+        if (!this.$store.state.products.products){
+            this.$router.push("/ProductPage");
         }
     },
     methods: {
         OnClickBack(){
-            this.$router.push('/ProductPage');  
+            this.$router.push("/ProductPage");  
         },
     }
 }
 </script>
 <style scoped>
-    @import '@/styles/pages.css';
+    @import "@/styles/pages.css";
     .container {
         margin-top: 10px;
         border: 1px solid white;     

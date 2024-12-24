@@ -5,7 +5,7 @@ const state = {
 
 const mutations = {
     addProduct(state) {
-        state.products.push({ id: state.id, name: '', price: '' });
+        state.products.push({ id: state.id, name: "", price: "" });
         state.id += 1;
     },
     delProduct(state, id) {
@@ -19,14 +19,9 @@ const mutations = {
     },
 };
 
-const getters = {
-    allProducts: (state) => state.products,
-    productById: (state) => (id) => state.products.find(item => item.id === id),
-};
 
 export default {
     namespaced: true,
     state,
     mutations,
-    getters,
 };

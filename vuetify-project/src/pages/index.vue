@@ -29,22 +29,23 @@
   </div>
 </template>
 <script>
-import PersonList from '@/components/PersonList.vue';
+import PersonList from "@/components/PersonList.vue";
 export default {
+    components: [PersonList],
     data() {
         return {
             persons: null,
             isActive: false,
-            buttonText: 'Next',
+            buttonText: "Next",
         };
     },
     methods:{
         OnClickAddPerson(){
-            this.$store.commit('persons/addPerson')
+            this.$store.commit("persons/addPerson")
         },
         OnClickCheckBtn(){
-            this.$store.commit('persons/checkPersons');
-            this.$store.commit('persons/checkPersonsName');
+            this.$store.commit("persons/checkPersons");
+            this.$store.commit("persons/checkPersonsName");
 
             this.isActive = true;
             setTimeout(() => {
@@ -53,21 +54,21 @@ export default {
 
             if(this.$store.state.persons.isPersonLenValid){
                 if(this.$store.state.persons.isNameValid){
-                    this.$router.push('/ProductPage');
+                    this.$router.push("/ProductPage");
                 }
                 else{
-                    this.buttonText = 'Enter names';
+                    this.buttonText = "Enter names";
                 }
             }
             else{
-                this.buttonText = 'Add at least 2 people';
+                this.buttonText = "Add at least 2 people";
             }
         }
     }
 }
 </script>
 <style scoped>
-  @import '@/styles/pages.css';
+  @import "@/styles/pages.css";
   .add-btn {
     width: 100%;
     border-bottom: 1px solid white;

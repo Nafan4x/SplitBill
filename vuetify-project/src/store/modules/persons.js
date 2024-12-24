@@ -7,7 +7,7 @@ const state = {
 
 const mutations = {
     addPerson(state) {
-        state.persons.push({ id: state.id, name: '' });
+        state.persons.push({ id: state.id, name: "" });
         state.id += 1;
     },
     delPerson(state, id) {
@@ -27,15 +27,8 @@ const mutations = {
     },
 };
 
-const getters = {
-    allPersons: (state) => state.persons,
-    isMultiplePersons: (state) => state.isPersonLenValid,
-    areAllNamesValid: (state) => state.isNameValid,
-};
-
 export default {
     namespaced: true,
     state,
     mutations,
-    getters,
 };

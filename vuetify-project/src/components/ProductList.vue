@@ -13,25 +13,26 @@
   </div>
 </template>
 <script>
-import {mapState} from 'vuex';
-import ProductItem from './ProductItem.vue';
+import {mapState} from "vuex";
+import ProductItem from "./ProductItem.vue";
 export default {
+    components: [ProductItem],
     computed: {
-        ...mapState('persons', ['persons']),
-        ...mapState('products', ['products']),
+        ...mapState("persons", ["persons"]),
+        ...mapState("products", ["products"]),
     },
     methods: {
         updateProductName({ id, value }) {
-            this.$store.commit('products/updateProduct', { id, field: 'name', value: value });
+            this.$store.commit("products/updateProduct", { id, field: "name", value: value });
         },
         updateProductPrice({ id, value }) {
-            this.$store.commit('products/updateProduct', { id, field: 'price', value: value });
+            this.$store.commit("products/updateProduct", { id, field: "price", value: value });
         },
         updateProductBuyer({ id, value }) {
-            this.$store.commit('products/updateProduct', { id, field: 'buyer', value: value });
+            this.$store.commit("products/updateProduct", { id, field: "buyer", value: value });
         },
         updateProductPersons({ id, value }) {
-            this.$store.commit('products/updateProduct', { id, field: 'persons', value: value });
+            this.$store.commit("products/updateProduct", { id, field: "persons", value: value });
         }
     },
 }

@@ -2,7 +2,7 @@
   <div 
     v-if="show" 
     class="dialog"
-    @click.stop="hideDialog"
+    @click="hideDialog"
   >
     <div 
       class="dialog-content"
@@ -48,10 +48,10 @@ export default {
     },
     methods:{
         hideDialog(){
-            this.$emit('update:show', false)
+            this.$emit("update:show", false)
         },
         addBuyer(){
-            this.$emit('update:buyer', this.buyer)
+            this.$emit("update:buyer", this.buyer)
         }
     }
 }

@@ -34,53 +34,58 @@
   </div>  
 </template>
 <script>
-import {mapState} from 'vuex'
-import ProductList from '@/components/ProductList.vue';
+import {mapState} from "vuex"
+import ProductList from "@/components/ProductList.vue";
 export default {
+    components: [ProductList],
     data(){
         return{
             isActive: false,
-            buttonText: 'Next',
+            buttonText: "Next",
+            isProdNameValid: false,
+            isProdPersonValid: false,
+            isProdBuyerValid: false,
+            isProdLenValid: false,
         }
     },
     computed: {
-        ...mapState('products', ['products'])
+        ...mapState("products", ["products"])
     },
     mounted(){
         if(!this.$store.state.persons.isPersonLenValid || !this.$store.state.persons.isNameValid)
-            this.$router.push('/');
+            this.$router.push("/");
     },
     methods: {
         OnClickBack(){
-            this.$router.push('/');
+            this.$router.push("/");
         },
         OnClickAddProduct(){
-            this.$store.commit('products/addProduct')
+            this.$store.commit("products/addProduct")
         },
         OnClickCheckBtn(){
-            this.$store.commit('calcCheck/checkProdBuyer', this.products);
-            this.$store.commit('calcCheck/checkProdNames', this.products);
-            this.$store.commit('calcCheck/checkProdPersons', this.products);
-            this.$store.commit('calcCheck/checkProdLen', this.products);
+            this.isProdNameValid = Array.isArray(this.products) && this.products.every(item => item.name && item.price);
+            this.isProdBuyerValid = Array.isArray(this.products) && this.products.every(item => item.buyer);
+            this.isProdPersonValid = Array.isArray(this.products) && this.products.every(item => item.persons?.length);
+            this.isProdLenValid = Array.isArray(this.products) && this.products.length > 1;
             
             this.isActive = true;
             setTimeout(() => {
                 this.isActive = false;
             }, 1000);
             
-            if (this.$store.state.calcCheck.isProdNameValid && this.$store.state.calcCheck.isProdBuyerValid && this.$store.state.calcCheck.isProdPersonValid && this.$store.state.calcCheck.isProdLenValid)
-                this.$router.push('/ResultPage');
-            else if(!this.$store.state.calcCheck.isProdNameValid){
-                this.buttonText = 'Enter all names and prices'
+            if (this.isProdNameValid && this.isProdBuyerValid && this.isProdPersonValid && this.isProdLenValid)
+                this.$router.push("/ResultPage");
+            else if(!this.isProdNameValid){
+                this.buttonText = "Enter all names and prices"
             }
-            else if(!this.$store.state.calcCheck.isProdBuyerValid){
-                this.buttonText = 'Select all buyers'
+            else if(!this.isProdBuyerValid){
+                this.buttonText = "Select all buyers"
             }
-            else if(!this.$store.state.calcCheck.isProdPersonValid){
-                this.buttonText = 'Select all users of the products'
+            else if(!this.isProdPersonValid){
+                this.buttonText = "Select all users of the products"
             }
-            else if(!this.$store.state.calcCheck.isProdLenValid){
-                this.buttonText = 'Add at least 2 products';
+            else if(!this.isProdLenValid){
+                this.buttonText = "Add at least 2 products";
             }
         }
     },
@@ -88,7 +93,7 @@ export default {
 }
 </script>
 <style scoped>
-    @import '@/styles/pages.css';
+    @import "@/styles/pages.css";
     .add-btn {
         width: 100%;
         border-bottom: 1px solid white;

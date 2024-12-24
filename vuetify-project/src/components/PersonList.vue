@@ -9,15 +9,16 @@
   </div>
 </template>
 <script>
-import {mapState} from 'vuex'
-import PersonButton from './PersonButton.vue';
+import {mapState} from "vuex"
+import PersonButton from "./PersonButton.vue";
 export default {
+    components: [PersonButton],
     computed: {
-        ...mapState('persons', ['persons'])
+        ...mapState("persons", ["persons"])
     },
     methods: {
         updatePersonName({ id, value }) {
-            this.$store.commit('persons/updatePersonName', { id, name: value });
+            this.$store.commit("persons/updatePersonName", { id, name: value });
         },
     },
 }

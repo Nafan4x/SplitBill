@@ -11,10 +11,9 @@
     <v-btn 
       variant="outlined" 
       height="50px" 
-      @click="OnClickDelPerson"
-    >
-      -
-    </v-btn>
+      text="Del"
+      @click="onClickDelPerson"
+    />
   </div>
 </template>
 <script>
@@ -26,7 +25,7 @@ export default {
         }
     },
     methods:{
-        OnClickDelPerson(){
+        onClickDelPerson(){
             this.$store.commit("persons/delPerson", this.person.id)
         },
         onInput(event) {
@@ -41,7 +40,7 @@ export default {
         width: 100%;
         height: 50px;
         padding-left: 10px;
-        border: 0px;
+        border: 0;
     }
     .person-item{
         padding: 5px;

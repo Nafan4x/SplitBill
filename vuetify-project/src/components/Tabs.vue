@@ -27,10 +27,11 @@
         > 
           <TabItem 
             v-for="item in depts"
-            v-if="depts.length != 0"
+            v-if="depts.length"
             :key="item.id"
             :name="item[0]"
             :dept="item[1]"
+            :firsttab="true"
             class="item"
           />
 
@@ -45,10 +46,11 @@
         > 
           <TabItem 
             v-for="item in depts2"
-            v-if="depts2.length != 0"
+            v-if="depts2.length"
             :key="item.id"
             :name="item[0]"
             :dept="item[1]"
+            :firsttab="false"
             class="item"
           />
           <TabItem 
@@ -61,9 +63,10 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
-import TabItem from './TabItem.vue';
+import {mapState} from "vuex"
+import TabItem from "./TabItem.vue";
 export default {
+    components: [TabItem],
     data: () => ({
         tab: null,
         depts: [],
@@ -71,8 +74,8 @@ export default {
     }), 
 
     computed: {
-        ...mapState('persons', ['persons']),
-        ...mapState('products', ['products']),  
+        ...mapState("persons", ["persons"]),
+        ...mapState("products", ["products"]),  
     },
     mounted(){
         this.depts = this.calculateDebts(this.products, this.persons);// Кто - кому
@@ -158,7 +161,7 @@ export default {
             }
 
             // Преобразуем ID в имена
-            const listWithNames = Object.entries(finalDebts).map(([debtorId, creditors]) => {
+            return Object.entries(finalDebts).map(([debtorId, creditors]) => {
                 const debtorName = personsMap[debtorId] || `Unknown (${debtorId})`; // Заменяем id должника на имя
                 const creditorsWithNames = Object.entries(creditors).reduce((result, [creditorId, amount]) => {
                     const creditorName = personsMap[creditorId] || `Unknown (${creditorId})`; // Заменяем id кредитора на имя
@@ -168,9 +171,6 @@ export default {
 
                 return [debtorName, creditorsWithNames];
             });
-
-            
-            return listWithNames;
         }
     },
 }

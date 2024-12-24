@@ -31,18 +31,16 @@
       <v-btn 
         variant="outlined"
         height="50px"
+        text="Del"
         @click="OnClickDelProduct"
-      > 
-        del 
-      </v-btn>
+      /> 
 
       <v-btn 
         variant="outlined"
         height="50px"
+        text="V"
         @click="OnClickChangeContainer"
-      > 
-        V
-      </v-btn>
+      />
     </div>
     <!-- Второй контейнер -->            
     <div id="product-item" :class="['slide-container', { 'visible': isContainerVisible }]">
@@ -76,24 +74,23 @@
       <v-btn 
         variant="outlined"
         height="50px"
+        text="^"
         @click="OnClickChangeContainer"
-      >
-        ^
-      </v-btn>
+      />
     </div>
+    <Dialog
+      v-model:show="isDialogVisible"
+      v-model:buyer="buyer"
+      :persons="persons"
+    />
   </div>
   <!-- Выбор покупателя -->
-  <Dialog
-    v-model:show="isDialogVisible"
-    v-model:buyer="buyer"
-    :persons="persons"
-  />
 </template>
 
 <script>
-import Dialog from './Dialog.vue';
-import PersonButton from './PersonButton.vue';
-import { mapGetters } from 'vuex';
+import Dialog from "./Dialog.vue";
+import PersonButton from "./PersonButton.vue";
+import { mapGetters } from "vuex";
 
 export default {
     components: [Dialog, PersonButton],
@@ -107,17 +104,17 @@ export default {
             required: true,
         }
     },
-    emits: ['updateName', 'updatePrice', 'updatePersons', 'updateBuyer'],   
+    emits: ["updateName", "updatePrice", "updatePersons", "updateBuyer"],   
     data() {
         return {
             isContainerVisible: false,
             isDialogVisible: false,
-            buyer: '',
+            buyer: "",
             selectedPersons: [],
         };
     },
     computed: {
-        ...mapGetters('products', ['productById']),
+        ...mapGetters("products", ["productById"]),
     },
     watch:{
         buyer: function(value){
@@ -151,7 +148,7 @@ export default {
         },
         updateSelectedItems(item, isActive){
             if (item.id === null){
-                this.selectedPersons = isActive ? this.persons.concat([item]) : [];
+                this.selectedPersons = isActive ? this.persons.push(item) : [];
             }
             else{
                 if (isActive){
@@ -181,7 +178,7 @@ export default {
     .main-container {
         position: relative; /* Нужно для выезжающего контейнера */
         overflow: hidden; /* Скрываем выезжающий контент за границами */
-        padding-top: 0px;
+        padding-top: 0;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -189,7 +186,7 @@ export default {
     .first-container{
         position: relative; /* Нужно для выезжающего контейнера */
         overflow: hidden; /* Скрываем выезжающий контент за границами */
-        padding-top: 0px;
+        padding-top: 0;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -216,7 +213,7 @@ export default {
         width: 100%;
         height: 50px;
         padding-left: 10px;
-        border: 0px;  
+        border: 0;  
     }
     .card{
         width: 37%;

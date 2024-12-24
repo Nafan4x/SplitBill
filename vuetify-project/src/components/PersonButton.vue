@@ -28,7 +28,7 @@ export default {
 
     methods:{
         OnClickSelected(){
-            this.$emit('update:selected', this.person, !this.isSelected)
+            this.$emit("update:selected", this.person, !this.isSelected)
         },
     },
     

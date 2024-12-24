@@ -4,8 +4,11 @@
       v-if="dept"
       class="card-person"
     >
-      <h3>
+      <h3 v-if="firsttab">
         Person {{ name }} should give
+      </h3>
+      <h3 v-else>
+        Person {{ name }} should get from
       </h3>
       <p 
         v-for="[key, value] in Object.entries(dept)"
@@ -34,6 +37,10 @@ export default {
         dept: {
             type: Object,
             default: () => null,
+        },
+        firsttab: {
+            type: Boolean,
+            default: () => true,
         }
     },
 }
