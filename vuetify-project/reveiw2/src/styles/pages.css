@@ -1,0 +1,14 @@
+.container {
+    margin-top: 60px;
+    border: 1px solid white;     
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.main-page{
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+}
