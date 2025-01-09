@@ -10,7 +10,7 @@
     >
       <h1>Choose buyer</h1>
       <v-radio-group 
-        :value="buyer" 
+        v-model="buyer" 
         class="radio-group"
         @change="updateBuyer"
       >
@@ -31,6 +31,11 @@
 </template> 
 <script>
 export default {
+    data(){
+        return{
+            buyer: null,
+        }
+    },
     props:{
         show: {
             type: Boolean,
@@ -40,19 +45,13 @@ export default {
             type: Array,
             required: true,
         },
-        buyer: {
-            type: [Object, null],
-            default: null,
-        },
-
     },
     methods:{
         OnClickHideDialog(){
-            this.$emit("update:show", false)
+            this.$emit("update:show")
         },
-        updateBuyer(newValue) {
-            console.log(newValue); // Теперь выводится правильное значение, а не объект события
-            this.$emit('update:buyer', newValue);
+        updateBuyer() {
+            this.$emit('update:buyer', this.buyer);
         },
     }
 }

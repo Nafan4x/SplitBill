@@ -82,8 +82,8 @@
       :show="isDialogVisible"
       :buyer="buyer"
       :persons="persons"
-      @update:show="handleDialogClose" 
-      @update:buyer="handleBuyerUpdate"
+      @update:show="OnHideDialog" 
+      @update:buyer = "onUpdateBuyer"
     />
   </div>
   <!-- Выбор покупателя -->
@@ -92,7 +92,6 @@
 <script>
 import Dialog from "./Dialog.vue";
 import PersonButton from "./PersonButton.vue";
-import { mapGetters } from "vuex";
 
 export default {
     components: [Dialog, PersonButton],
@@ -115,11 +114,6 @@ export default {
             selectedPersons: [],
         };
     },
-    // watch:{
-    //     buyer: function(value){
-    //         this.$emit("updateBuyer", { id: this.product.id, value:value });
-    //     }
-    // },
     mounted(){
         if(this.product.persons){
             this.selectedPersons = this.product.persons;
@@ -163,12 +157,12 @@ export default {
             }
             this.$emit("updatePersons", {id: this.product.id, value: this.selectedPersons.filter((selectedItem) => selectedItem.id != null)});
         },
-        handleDialogClose(newShowValue) {
-            this.showDialog = newShowValue;
+        OnHideDialog() {
+            this.isDialogVisible = false;
         },
-        handleBuyerUpdate(newBuyer) {
-            console.log(newBuyer)
-            this.buyer = newBuyer.name;
+        onUpdateBuyer(newBuyer) {
+            this.buyer = newBuyer;
+            this.$emit("updateBuyer", { id: this.product.id, value:newBuyer });
         },
 
     },
