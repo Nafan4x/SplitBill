@@ -65,7 +65,7 @@
         variant="outlined"
         height="50px"
         class="btn"
-        @click="showDialog"
+        @click="OnClickShowDialog"
       >   
         <h4>{{ buyer.name }}</h4>
         <v-icon>mdi-account</v-icon>       
@@ -79,9 +79,11 @@
       />
     </div>
     <Dialog
-      v-model:show="isDialogVisible"
-      v-model:buyer="buyer"
+      :show="isDialogVisible"
+      :buyer="buyer"
       :persons="persons"
+      @update:show="handleDialogClose" 
+      @update:buyer="handleBuyerUpdate"
     />
   </div>
   <!-- Выбор покупателя -->
@@ -113,14 +115,11 @@ export default {
             selectedPersons: [],
         };
     },
-    computed: {
-        ...mapGetters("products", ["productById"]),
-    },
-    watch:{
-        buyer: function(value){
-            this.$emit("updateBuyer", { id: this.product.id, value:value });
-        }
-    },
+    // watch:{
+    //     buyer: function(value){
+    //         this.$emit("updateBuyer", { id: this.product.id, value:value });
+    //     }
+    // },
     mounted(){
         if(this.product.persons){
             this.selectedPersons = this.product.persons;
@@ -143,12 +142,16 @@ export default {
         OnClickChangeContainer() {
             this.isContainerVisible = !this.isContainerVisible;
         },
-        showDialog(){
+        OnClickShowDialog(){
             this.isDialogVisible = true;
         },
         updateSelectedItems(item, isActive){
-            if (item.id === null){
-                this.selectedPersons = isActive ? this.persons.push(item) : [];
+            if (item.id === null) {
+                if (isActive) {
+                    this.selectedPersons = [...this.persons, item];
+                } else {
+                    this.selectedPersons = [];
+                }
             }
             else{
                 if (isActive){
@@ -159,6 +162,13 @@ export default {
                 
             }
             this.$emit("updatePersons", {id: this.product.id, value: this.selectedPersons.filter((selectedItem) => selectedItem.id != null)});
+        },
+        handleDialogClose(newShowValue) {
+            this.showDialog = newShowValue;
+        },
+        handleBuyerUpdate(newBuyer) {
+            console.log(newBuyer)
+            this.buyer = newBuyer.name;
         },
 
     },

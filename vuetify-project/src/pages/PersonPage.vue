@@ -29,31 +29,35 @@
   </div>
 </template>
 <script>
+import {mapState} from "vuex"
 import PersonList from "@/components/PersonList.vue";
 export default {
     components: [PersonList],
     data() {
         return {
-            persons: null,
             isActive: false,
             buttonText: "Next",
+            isPersonLenValid: false,
+            isNameValid: false,
         };
+    },
+    computed: {
+        ...mapState("persons", ["persons"])
     },
     methods:{
         OnClickAddPerson(){
             this.$store.commit("persons/addPerson")
         },
         OnClickCheckBtn(){
-            this.$store.commit("persons/checkPersons");
-            this.$store.commit("persons/checkPersonsName");
-
+            this.isPersonLenValid = Array.isArray(this.persons) && this.persons.length > 1;
+            this.isNameValid = Array.isArray(this.persons) && this.persons.every(item => item.name !== "");
             this.isActive = true;
             setTimeout(() => {
                 this.isActive = false;
             }, 1000);
 
-            if(this.$store.state.persons.isPersonLenValid){
-                if(this.$store.state.persons.isNameValid){
+            if(this.isPersonLenValid){
+                if(this.isNameValid){
                     this.$router.push("/ProductPage");
                 }
                 else{

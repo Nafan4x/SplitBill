@@ -6,8 +6,28 @@
  */
 
 // Composables
+import PersonPage from '@/pages/PersonPage.vue';
+import ProductPage from '@/pages/ProductPage.vue';
+import ResultPage from '@/pages/ResultPage.vue';
 import { createRouter, createWebHistory } from 'vue-router/auto'
-import { routes } from 'vue-router/auto-routes'
+
+const routes = [
+    {
+        path: '/', // Главная страница
+        name: 'PersonPage',
+        component: PersonPage,
+    },
+    {
+        path: '/ProductPage', // Страница профиля
+        name: 'ProductPage',
+        component: ProductPage,
+    },
+    {
+        path: '/ResultPage', // Страница входа
+        name: 'ResultPage',
+        component: ResultPage,
+    },
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

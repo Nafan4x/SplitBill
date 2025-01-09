@@ -17,12 +17,12 @@ export default {
         },
         selectedItems:{
             type: Array,
-            default: () => [],
+            required: true,
         }
     },
     computed:{
         isSelected(){
-            return this.selectedItems?.some((selectedItem) => selectedItem.id === this.person.id);
+            return this.selectedItems?.some((selectedItem) => selectedItem.id == this.person.id);
         }
     },
 

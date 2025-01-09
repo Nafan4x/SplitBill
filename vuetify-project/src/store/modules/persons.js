@@ -1,8 +1,6 @@
 const state = {
     id: 0,
     persons: [],
-    isPersonLenValid: false,
-    isNameValid: false,
 };
 
 const mutations = {

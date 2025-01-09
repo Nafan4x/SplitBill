@@ -24,7 +24,7 @@ import Tabs from "@/components/Tabs.vue";
 export default {
     components: [Tabs],
     mounted(){ //переадресация
-        if(!this.$store.state.persons.isPersonLenValid || !this.$store.state.persons.isNameValid)
+        if(!this.$store.state.persons.persons)
             this.$router.push("/");
         if (!this.$store.state.products.products){
             this.$router.push("/ProductPage");

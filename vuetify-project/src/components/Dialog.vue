@@ -2,7 +2,7 @@
   <div 
     v-if="show" 
     class="dialog"
-    @click="hideDialog"
+    @click="OnClickHideDialog"
   >
     <div 
       class="dialog-content"
@@ -10,8 +10,9 @@
     >
       <h1>Choose buyer</h1>
       <v-radio-group 
-        v-model="buyer" 
+        :value="buyer" 
         class="radio-group"
+        @change="updateBuyer"
       >
         <div 
           v-for="item in persons"
@@ -21,8 +22,7 @@
           <h3>{{ item.name }}</h3>
           <v-radio 
             :value="item" 
-            style="flex: none"  
-            @change="addBuyer"
+            style="flex: none"
           />
         </div>
       </v-radio-group>
@@ -39,20 +39,21 @@ export default {
         persons: {
             type: Array,
             required: true,
-        }
-    },
-    data(){
-        return{
-            buyer: null
-        }
+        },
+        buyer: {
+            type: [Object, null],
+            default: null,
+        },
+
     },
     methods:{
-        hideDialog(){
+        OnClickHideDialog(){
             this.$emit("update:show", false)
         },
-        addBuyer(){
-            this.$emit("update:buyer", this.buyer)
-        }
+        updateBuyer(newValue) {
+            console.log(newValue); // Теперь выводится правильное значение, а не объект события
+            this.$emit('update:buyer', newValue);
+        },
     }
 }
 </script>

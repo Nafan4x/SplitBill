@@ -20,9 +20,8 @@ export default defineConfig({
     Vuetify({
       autoImport: true,
     }),
-    Components()    ,
-    ViteFonts({
-    }),
+    Components(),
+    ViteFonts(),
   ],
   define: { 'process.env': {} },
   resolve: {

@@ -52,7 +52,7 @@ export default {
         ...mapState("products", ["products"])
     },
     mounted(){
-        if(!this.$store.state.persons.isPersonLenValid || !this.$store.state.persons.isNameValid)
+        if(!this.$store.state.persons.persons.length)
             this.$router.push("/");
     },
     methods: {
