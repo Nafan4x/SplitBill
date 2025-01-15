@@ -67,7 +67,7 @@
         class="btn"
         @click="OnClickShowDialog"
       >   
-        <h4>{{ buyer.name }}</h4>
+        <h4 v-if="buyer"> {{ buyer.name }}</h4>
         <v-icon>mdi-account</v-icon>       
       </v-btn>
       <!-- Кнопка скрытия контейнера -->
@@ -110,7 +110,7 @@ export default {
         return {
             isContainerVisible: false,
             isDialogVisible: false,
-            buyer: "",
+            buyer: null,
             selectedPersons: [],
         };
     },
